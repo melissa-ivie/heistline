@@ -91,8 +91,6 @@ This project is configured to auto-deploy to IONOS using GitHub Actions via SFTP
 
 ### Branching Strategy 
 
----
-
 ### Step 1: Create a New Branch
 
 1. Open **GitHub Desktop**
