@@ -1,4 +1,4 @@
-name: Deploy to IONOS via FTP
+name: Deploy to IONOS via SFTP
 
 on:
   push:
@@ -22,11 +22,11 @@ jobs:
           npm install
           npm run build
 
-      - name: Deploy to IONOS via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: SFTP Deploy to IONOS
+        uses: easingthemes/ssh-deploy@main
         with:
-          server: ${{ secrets.IONOS_FTP_SERVER }}
-          username: ${{ secrets.IONOS_FTP_USERNAME }}
-          password: ${{ secrets.IONOS_FTP_PASSWORD }}
-          local-dir: heistline/dist/
-          server-dir: /htdocs/
+          ssh-private-key: ${{ secrets.IONOS_SFTP_PRIVATE_KEY }}
+          remote-user: ${{ secrets.IONOS_FTP_USERNAME }}
+          server-ip: ${{ secrets.IONOS_FTP_SERVER }}
+          remote-path: /htdocs/
+          local-path: heistline/dist/
