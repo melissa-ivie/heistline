@@ -28,5 +28,5 @@ jobs:
           server: ${{ secrets.IONOS_FTP_SERVER }}
           username: ${{ secrets.IONOS_FTP_USERNAME }}
           password: ${{ secrets.IONOS_FTP_PASSWORD }}
-          local-dir: heistline/dist
+          local-dir: heistline/dist/
           server-dir: /htdocs/
