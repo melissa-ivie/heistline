@@ -22,11 +22,13 @@ jobs:
           npm install
           npm run build
 
-      - name: SFTP Deploy to IONOS
-        uses: easingthemes/ssh-deploy@main
+      - name: Deploy via SFTP to IONOS
+        uses: pressidium/lftp-deploy@v1.0.0
         with:
-          ssh-private-key: ${{ secrets.IONOS_SFTP_PRIVATE_KEY }}
-          remote-user: ${{ secrets.IONOS_FTP_USERNAME }}
-          server-ip: ${{ secrets.IONOS_FTP_SERVER }}
-          remote-path: /htdocs/
-          local-path: heistline/dist/
+          host: ${{ secrets.IONOS_FTP_SERVER }}
+          port: 22
+          username: ${{ secrets.IONOS_FTP_USERNAME }}
+          password: ${{ secrets.IONOS_FTP_PASSWORD }}
+          localDir: heistline/dist/
+          remoteDir: /htdocs/
+          sftp: true
