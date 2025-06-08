@@ -26,5 +26,5 @@ jobs:
           username: ${{ secrets.IONOS_FTP_USERNAME }}
           password: ${{ secrets.IONOS_FTP_PASSWORD }}
           port: 22
-          source: "heistline/dist/*"
+          source: "dist/*"          
           target: "htdocs"
