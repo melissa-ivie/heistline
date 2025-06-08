@@ -13,18 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies and build
+      - name: Install dependencies and build project
         working-directory: heistline
         run: |
           npm install
           npm run build
 
-      - name: Upload files to IONOS via SFTP
+      - name: Upload built site to IONOS
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.IONOS_FTP_SERVER }}
           username: ${{ secrets.IONOS_FTP_USERNAME }}
           password: ${{ secrets.IONOS_FTP_PASSWORD }}
           port: 22
-          source: "heistline/dist/*"
+          source: "dist/*"
           target: "htdocs"
+          working-directory: heistline
