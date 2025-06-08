@@ -1,4 +1,4 @@
-name: Deploy to IONOS Web Hosting
+name: Deploy to IONOS via FTP
 
 on:
   push:
@@ -9,20 +9,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: heistline
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install and build
+      - name: Install dependencies and build
         run: |
           npm install
           npm run build
 
-      - name: Deploy via FTP
+      - name: Deploy to IONOS via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.IONOS_FTP_SERVER }}
           username: ${{ secrets.IONOS_FTP_USERNAME }}
           password: ${{ secrets.IONOS_FTP_PASSWORD }}
-          local-dir: dist
+          local-dir: heistline/dist
           server-dir: /htdocs/
