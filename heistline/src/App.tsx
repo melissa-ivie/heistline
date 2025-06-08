@@ -18,7 +18,7 @@ function Home() {
 
       <div className="panel-row">
         <div className="welcome-panel">
-          <h2 className="panel-heading">Welcome to Heist Game!</h2>
+          <h2 className="panel-heading">Welcome to Heist Line!</h2>
           <p className="panel-text">
             Strike from the shadows. Take down the corrupt, the powerful,
             the untouchable. With your crew of specialists, you’ll hack, 
@@ -27,7 +27,7 @@ function Home() {
         </div>
 
         <div className="heists-panel">
-          <h2 className="panel-heading">Heists</h2>
+          <h2 className="panel-heading">Missions</h2>
           <div className="heist-buttons">
             {['Operation Blackwater'].map((heist) => (
               <button

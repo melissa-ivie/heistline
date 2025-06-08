@@ -1,4 +1,3 @@
-// src/heistData.ts
 
 const heists = {
   "Operation Blackwater": {
