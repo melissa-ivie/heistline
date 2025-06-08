@@ -13,7 +13,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install dependencies and build project
+      - name: Install dependencies and build
         working-directory: heistline
         run: |
           npm install
@@ -26,6 +26,5 @@ jobs:
           username: ${{ secrets.IONOS_FTP_USERNAME }}
           password: ${{ secrets.IONOS_FTP_PASSWORD }}
           port: 22
-          source: "dist/*"
+          source: "heistline/dist/*"
           target: "htdocs"
-          working-directory: heistline
