@@ -22,13 +22,13 @@ jobs:
           npm install
           npm run build
 
-      - name: Deploy via SFTP to IONOS
-        uses: pressidium/lftp-deploy@v1.0.0
+      - name: Upload files to IONOS via SFTP
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.IONOS_FTP_SERVER }}
-          port: 22
           username: ${{ secrets.IONOS_FTP_USERNAME }}
           password: ${{ secrets.IONOS_FTP_PASSWORD }}
-          localDir: heistline/dist/
-          remoteDir: /htdocs/
-          sftp: true
+          port: 22
+          source: "heistline/dist/*"
+          target: "/htdocs/"
+          strip_components: 2
