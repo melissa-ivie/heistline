@@ -51,7 +51,7 @@ export default function BlackwaterHeist() {
 
   const objectives = getObjectives(decoded);
 
-  const [completed, setCompleted] = useState<Record<number, boolean>>(() => {
+  const [completed] = useState<Record<number, boolean>>(() => {
     const state: Record<number, boolean> = {};
     objectiveRoutes.forEach((route, idx) => {
       state[idx] = sessionStorage.getItem(`${decoded}-objective-${route}`) === 'complete';
