@@ -1,8 +1,8 @@
 
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import './App.css';
-import { useCountdown } from './CountdownContext';
+import '../App.css';
+import { useCountdown } from '../Components/CountdownContext';
 
 const getObjectives = (heistName: string) => {
   const objectivesMap: Record<string, string[]> = {

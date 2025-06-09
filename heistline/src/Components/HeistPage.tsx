@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
-import heists from './heistData';
-import './App.css';
+import heists from '../Data/heistData';
+import '../App.css';
 
 type HeistKey = keyof typeof heists;
 

@@ -1,12 +1,12 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import HeistPage from './HeistPage';
+import HeistPage from './Components/HeistPage';
 import './App.css';
-import BlackwaterHeist from './BlackwaterHeist';
+import BlackwaterHeist from './Missions/BlackwaterHeist';
 import AirportObjective from './BlackwaterPuzzles/AirportObjective';
 import ContaminationReportObjective from './BlackwaterPuzzles/ContaminationReportObjective';
 import EmailServersObjective from './BlackwaterPuzzles/EmailServersObjective';
 import FBIObjective from './BlackwaterPuzzles/FBIObjective';
-import { CountdownProvider } from './CountdownContext';
+import { CountdownProvider } from './Components/CountdownContext';
 
 
 function Home() {

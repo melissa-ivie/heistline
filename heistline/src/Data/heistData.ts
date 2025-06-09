@@ -15,7 +15,7 @@ const heists = {
         - Trace internal communications and extract the CEO’s incriminating email.
         - Deliver the files anonymously to the FDA and FBI without leaving a digital trail.
 
-        Time is running out — and the town doesn’t know it’s dying yet.
+        Time is running out- and the town doesn’t know it’s dying yet.
     `,
   },
 
