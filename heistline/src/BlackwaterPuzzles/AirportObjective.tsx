@@ -1,6 +1,6 @@
-import { useParams, Link } from 'react-router-dom';
-import '../App.css';
 import { useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import '../App.css';
 
 export default function AirportObjective() {
   const { heistName } = useParams();
@@ -17,7 +17,7 @@ export default function AirportObjective() {
   return (
     <div className="app-container">
       <h1 className="app-title">Objective: Airport</h1>
-      <p className="panel-text">Prevent the plane from taking off or ensure it lands safely.</p>
+      <p className="panel-text">Prevent the plane from taking off or ensure it lands safely.</p> 
       <label>
       <input type="checkbox" checked={complete} onChange={handleChange} />
       Mission Complete
