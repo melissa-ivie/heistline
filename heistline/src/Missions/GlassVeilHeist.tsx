@@ -23,6 +23,10 @@ export default function GlassVeilHeist() {
     }
   }, [paused]);
 
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
