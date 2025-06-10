@@ -5,13 +5,13 @@ import { useState } from 'react';
 export default function FBIObjective() {
   const { heistName } = useParams();
   const [complete, setComplete] = useState(
-  sessionStorage.getItem(`${heistName}-objective-fbi`) === 'complete'
+  localStorage.getItem(`${heistName}-objective-fbi`) === 'complete'
   );
 
   const handleChange = () => {
     const updated = !complete;
     setComplete(updated);
-    sessionStorage.setItem(`${heistName}-objective-fbi`, updated ? 'complete' : '');
+    localStorage.setItem(`${heistName}-objective-fbi`, updated ? 'complete' : '');
   };
   return (
     <div className="app-container">

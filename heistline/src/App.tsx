@@ -1,13 +1,10 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import HeistPage from './Components/HeistPage';
-import './App.css';
-import BlackwaterHeist from './Missions/BlackwaterHeist';
-import AirportObjective from './BlackwaterPuzzles/AirportObjective';
-import ContaminationReportObjective from './BlackwaterPuzzles/ContaminationReportObjective';
-import EmailServersObjective from './BlackwaterPuzzles/EmailServersObjective';
-import FBIObjective from './BlackwaterPuzzles/FBIObjective';
-import { CountdownProvider } from './Components/CountdownContext';
+import PurchasePage from './Components/PurchasePage';
 
+import './App.css';
+import heists from './Data/heistData';
+import CountdownWrapper from './Components/CountdownWrapper';
 
 function Home() {
   const navigate = useNavigate();
@@ -29,13 +26,13 @@ function Home() {
         <div className="heists-panel">
           <h2 className="panel-heading">Missions</h2>
           <div className="heist-buttons">
-            {['Operation Blackwater'].map((heist) => (
+            {Object.keys(heists).map((heistKey) => (
               <button
-                key={heist}
+                key={heistKey}
                 className="heist-button"
-                onClick={() => navigate(`/heist/${encodeURIComponent(heist)}`)}
+                onClick={() => navigate(`/heist/${encodeURIComponent(heistKey)}`)}
               >
-                {heist.toUpperCase()}
+                {heistKey.toUpperCase()}
               </button>
             ))}
           </div>
@@ -54,51 +51,9 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/heist/:heistName" element={<HeistPage />} />
-
-      <Route
-        path="/heist/:heistName/start"
-        element={
-          <CountdownProvider heistKey="Operation Blackwater">
-            <BlackwaterHeist />
-          </CountdownProvider>
-        }
-      />
-
-      <Route
-        path="/heist/:heistName/objective/airport"
-        element={
-          <CountdownProvider heistKey="Operation Blackwater">
-            <AirportObjective />
-          </CountdownProvider>
-        }
-      />
-
-      <Route
-        path="/heist/:heistName/objective/contamination-report"
-        element={
-          <CountdownProvider heistKey="Operation Blackwater">
-            <ContaminationReportObjective />
-          </CountdownProvider>
-        }
-      />
-
-      <Route
-        path="/heist/:heistName/objective/email-servers"
-        element={
-          <CountdownProvider heistKey="Operation Blackwater">
-            <EmailServersObjective />
-          </CountdownProvider>
-        }
-      />
-
-      <Route
-        path="/heist/:heistName/objective/fbi"
-        element={
-          <CountdownProvider heistKey="Operation Blackwater">
-            <FBIObjective />
-          </CountdownProvider>
-        }
-      />
+      <Route path="/heist/:heistName/start" element={<CountdownWrapper />} />
+      <Route path="/heist/:heistName/objective/:objectiveId" element={<CountdownWrapper />} />
+      <Route path="/purchase/:heistName" element={<PurchasePage />} />
     </Routes>
   );
 }

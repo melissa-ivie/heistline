@@ -6,13 +6,13 @@ import { useState } from 'react';
 export default function EmailServersObjective() {
   const { heistName } = useParams();
   const [complete, setComplete] = useState(
-  sessionStorage.getItem(`${heistName}-email-servers`) === 'complete'
+  localStorage.getItem(`${heistName}-email-servers`) === 'complete'
   );
 
   const handleChange = () => {
     const updated = !complete;
     setComplete(updated);
-    sessionStorage.setItem(`${heistName}-objective-email-servers`, updated ? 'complete' : '');
+    localStorage.setItem(`${heistName}-objective-email-servers`, updated ? 'complete' : '');
   };
   return (
     <div className="app-container">

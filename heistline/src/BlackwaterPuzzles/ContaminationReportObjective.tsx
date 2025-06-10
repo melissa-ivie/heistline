@@ -6,13 +6,13 @@ import { useState } from 'react';
 export default function ContaminationReportObjective() {
   const { heistName } = useParams();
   const [complete, setComplete] = useState(
-  sessionStorage.getItem(`${heistName}-objective-contamination-report`) === 'complete'
+  localStorage.getItem(`${heistName}-objective-contamination-report`) === 'complete'
   );
 
   const handleChange = () => {
     const updated = !complete;
     setComplete(updated);
-    sessionStorage.setItem(`${heistName}-objective-contamination-report`, updated ? 'complete' : '');
+    localStorage.setItem(`${heistName}-objective-contamination-report`, updated ? 'complete' : '');
   };
 
   return (

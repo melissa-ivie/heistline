@@ -1,52 +1,18 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import '../App.css';
 import { useCountdown } from '../Components/CountdownContext';
+import '../App.css';
 import heists from '../Data/heistData';
+import { useState, useEffect } from 'react';
 
-export default function BlackwaterHeist() {
+export default function GlassVeilHeist() {
   const { heistName } = useParams();
   const decoded = decodeURIComponent(heistName || '');
-  const isValidHeist = decoded in heists;
-  const heist = isValidHeist ? heists[decoded as keyof typeof heists] : null;
-
   const { timeLeft, stopCountdown } = useCountdown();
+  const heist = heists[decoded as keyof typeof heists];
   const objectives = heist?.objectives || [];
 
   const [paused, setPaused] = useState(false);
   const [internalTime, setInternalTime] = useState(timeLeft);
-
-  const [completed] = useState<Record<string, boolean>>(() => {
-    const state: Record<string, boolean> = {};
-    objectives.forEach((obj) => {
-      const key = `${decoded}-objective-${obj.id}`;
-      state[obj.id] = localStorage.getItem(key) === 'complete';
-    });
-    return state;
-  });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    if (!paused) {
-      const allCompleted = Object.values(completed).every(Boolean);
-      const failed = timeLeft <= 0 && !allCompleted;
-
-      if (allCompleted || failed) {
-        document.getElementById('outcome-overlay')?.classList.add('show');
-        stopCountdown();
-        localStorage.setItem(`${decoded}-timer`, '0');
-
-        if (allCompleted) {
-          objectives.forEach((obj) => {
-            localStorage.setItem(`${decoded}-objective-${obj.id}`, '');
-          });
-        }
-      }
-    }
-  }, [completed, timeLeft, stopCountdown, decoded, objectives, paused]);
 
   useEffect(() => {
     if (!paused) {
@@ -65,27 +31,15 @@ export default function BlackwaterHeist() {
 
   const togglePause = () => {
     if (paused) {
-      window.location.reload();
+      window.location.reload(); // reloads to resume the timer via CountdownProvider
     } else {
       stopCountdown();
     }
     setPaused(!paused);
   };
 
-  if (!heist) {
-    return (
-      <div className="app-container">
-        <h1 className="app-title">UNKNOWN MISSION</h1>
-        <p className="panel-text">We couldn't find a mission called "{decoded}".</p>
-        <Link to="/">
-          <button className="developer-button">Back to HQ</button>
-        </Link>
-      </div>
-    );
-  }
-
   return (
-    <div className="app-container blackwater-background" style={{ overflowY: 'auto', position: 'relative' }}>
+    <div className={`app-container blackwater-background`} style={{ overflowY: 'auto', position: 'relative' }}>
       <h2 className="operation-title">MISSION: {decoded.toUpperCase()}</h2>
       <div className="countdown-timer">{formatTime(paused ? internalTime : timeLeft)}</div>
 
@@ -101,10 +55,10 @@ export default function BlackwaterHeist() {
 
       <div className="objectives-panel">
         {objectives.map((obj) => (
-          <div key={obj.id} className={`objective-box ${completed[obj.id] ? 'completed' : ''}`}>
+          <div key={obj.id} className="objective-box">
             <input
               type="checkbox"
-              checked={completed[obj.id]}
+              checked={localStorage.getItem(`${decoded}-objective-${obj.id}`) === 'complete'}
               readOnly
               disabled
               className="status-checkbox"
@@ -156,27 +110,6 @@ export default function BlackwaterHeist() {
           BACK TO HQ
         </button>
       </Link>
-
-      <div id="outcome-overlay" className="outcome-overlay">
-        <div className="outcome-modal">
-          <h2>{Object.values(completed).every(Boolean) ? '🎉 Mission Complete!' : '💥 Mission Failed'}</h2>
-          <p>
-            {Object.values(completed).every(Boolean)
-              ? "You've completed all objectives and saved the town!"
-              : 'Time ran out before all objectives were completed.'}
-          </p>
-          <Link
-            to="/"
-            onClick={() => {
-              localStorage.setItem(`${decoded}-timer`, '3600');
-            }}
-          >
-            <button className="developer-button" style={{ marginTop: '1rem' }}>
-              Back to HQ
-            </button>
-          </Link>
-        </div>
-      </div>
     </div>
   );
 }
