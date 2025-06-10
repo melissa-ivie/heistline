@@ -17,7 +17,7 @@ jobs:
         working-directory: heistline
         run: |
           npm install
-          npm run build
+          VITE_HEISTLINE_ACCESS_TOKEN=${{ secrets.VITE_HEISTLINE_ACCESS_TOKEN }} npm run build
 
       - name: Upload built site to IONOS
         uses: appleboy/scp-action@v0.1.4

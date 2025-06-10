@@ -23,22 +23,45 @@ export default function PurchasePage() {
 
   const accessKey = `${decoded}-access`;
 
-  const handleMockPayment = () => {
-    const code = Math.random().toString(36).substring(2, 10).toUpperCase();
-    const email = prompt("Enter your email to receive your access code:");
-    if (email) {
-      localStorage.setItem(accessKey, code);
-      alert(`Access code sent to ${email}: ${code}`);
-      navigate(`/heist/${encodeURIComponent(decoded)}/start`);
-    }
-  };
+ const handleMockPayment = async () => {
+  const email = prompt("Enter your email to receive your access code:");
+  if (!email) return;
 
-  const handleAccessCodeSubmit = () => {
-    const savedCode = localStorage.getItem(accessKey);
-    if (enteredCode === savedCode) {
-      navigate(`/heist/${encodeURIComponent(decoded)}/start`);
-    } else {
-      alert('Invalid access code.');
+  try {
+    const response = await fetch('https://heistline-access-api.onrender.com/api/generate-access', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${import.meta.env.VITE_HEISTLINE_ACCESS_TOKEN}`
+      },
+      body: JSON.stringify({ email, heistName: decoded }),
+    });
+
+    const data = await response.json();
+        if (data.success) {
+        alert(`Access code sent to ${email}`);
+        navigate(`/heist/${encodeURIComponent(decoded)}`);
+        } else {
+        alert(data.error || 'Failed to generate access code.');
+        }
+        } catch (err) {
+            alert('Network error. Please try again later.');
+        }
+    };
+
+
+  const handleAccessCodeSubmit = async () => {
+    try {
+      const res = await fetch(`https://heistline-access-api.onrender.com/api/verify-access?code=${enteredCode}&heist=${decoded}`);
+      const data = await res.json();
+      if (data.valid) {
+        localStorage.setItem(accessKey, enteredCode);
+        navigate(`/heist/${encodeURIComponent(decoded)}/start`);
+      } else {
+        alert('Invalid access code.');
+      }
+    } catch (err) {
+      alert('Failed to verify access code. Please try again later.');
     }
   };
 

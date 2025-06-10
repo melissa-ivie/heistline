@@ -30,13 +30,21 @@ export default function HeistPage() {
   const localAccessCode = localStorage.getItem(accessKey);
   const hasAccess = heist.isFree || localAccessCode;
 
-  const handleAccessCodeSubmit = () => {
-    if (enteredCode === localAccessCode) {
-      navigate(`/heist/${encodeURIComponent(decoded)}/start`);
-    } else {
-      alert('Invalid access code.');
+  const handleAccessCodeSubmit = async () => {
+    try {
+      const res = await fetch(`https://heistline-access-api.onrender.com/api/verify-access?code=${enteredCode}&heist=${decoded}`);
+      const data = await res.json();
+      if (data.valid) {
+        localStorage.setItem(`${decoded}-access`, enteredCode);
+        navigate(`/heist/${encodeURIComponent(decoded)}/start`);
+      } else {
+        alert('Invalid access code.');
+      }
+    } catch (err) {
+      alert('Failed to verify access code. Please try again later.');
     }
   };
+
 
   return (
     <div className="app-container">
