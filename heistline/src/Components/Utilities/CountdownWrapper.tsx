@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import heists from '../Data/heistData';
+import heists from '../../Data/heistData';
 import { CountdownProvider } from './CountdownContext';
 
 export default function CountdownWrapper() {

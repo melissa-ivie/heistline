@@ -18,7 +18,7 @@ export const CountdownProvider = ({
   children: React.ReactNode;
 }) => {
   const [timeLeft, setTimeLeft] = useState(() => {
-    const stored = sessionStorage.getItem(`${heistKey}-timer`);
+    const stored = localStorage.getItem(`${heistKey}-timer`);
     return stored ? parseInt(stored, 10) : 3600;
   });
 
