@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState } from 'react';
-import '../App.css';
+import '../../../App.css';
 
 export default function SurveillanceShutdown() {
   const { heistName } = useParams();

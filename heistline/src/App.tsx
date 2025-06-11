@@ -4,7 +4,7 @@ import PurchasePage from './Components/PurchasePage';
 
 import './App.css';
 import heists from './Data/heistData';
-import CountdownWrapper from './Components/CountdownWrapper';
+import CountdownWrapper from './Components/Utilities/CountdownWrapper';
 
 function Home() {
   const navigate = useNavigate();

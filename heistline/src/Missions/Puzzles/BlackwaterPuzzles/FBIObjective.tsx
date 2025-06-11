@@ -1,23 +1,22 @@
 import { useParams, Link } from 'react-router-dom';
-import '../App.css';
+import '../../../App.css';
 import { useState } from 'react';
 
-
-export default function EmailServersObjective() {
+export default function FBIObjective() {
   const { heistName } = useParams();
   const [complete, setComplete] = useState(
-  localStorage.getItem(`${heistName}-email-servers`) === 'complete'
+  localStorage.getItem(`${heistName}-objective-fbi`) === 'complete'
   );
 
   const handleChange = () => {
     const updated = !complete;
     setComplete(updated);
-    localStorage.setItem(`${heistName}-objective-email-servers`, updated ? 'complete' : '');
+    localStorage.setItem(`${heistName}-objective-fbi`, updated ? 'complete' : '');
   };
   return (
     <div className="app-container">
-      <h1 className="app-title">Objective: Email Servers</h1>
-      <p className="panel-text">Trace internal communications and extract the CEO’s incriminating email.</p>
+      <h1 className="app-title">Objective: FBI</h1>
+      <p className="panel-text">Deliver the files anonymously to the FDA and FBI without leaving a digital trail.</p>
       <label>
         <input type="checkbox" checked={complete} onChange={handleChange} />
         Mission Complete
