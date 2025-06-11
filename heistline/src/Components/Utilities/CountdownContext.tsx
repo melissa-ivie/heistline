@@ -22,8 +22,7 @@ export const CountdownProvider = ({
     return stored ? parseInt(stored, 10) : 3600;
   });
 
-const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null); // ✅ Works in browser
-
+const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null); 
   const stopCountdown = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
