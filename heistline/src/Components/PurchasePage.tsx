@@ -18,6 +18,8 @@ export default function PurchasePage() {
   const [email, setEmail] = useState('');
   const [enteredCode, setEnteredCode] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [modalMessage, setModalMessage] = useState<string | null>(null);
+  const [modalRedirect, setModalRedirect] = useState<string | null>(null);
 
   const accessKey = `${decoded}-access`;
   const hasHandledRedirect = useRef(false);
@@ -31,10 +33,23 @@ export default function PurchasePage() {
     stripePromise.then(stripe => {
       if (!stripe) return;
       stripe.retrievePaymentIntent(secret).then(({ paymentIntent }) => {
-        if (paymentIntent?.status === 'succeeded') {
-          alert('Payment successful! Your access code will arrive via email shortly.');
-          navigate(`/heist/${encodeURIComponent(decoded)}`);
+        if (!paymentIntent) return;
+
+        if (paymentIntent.status === 'succeeded') {
+          setModalMessage('Payment successful! Your access code has been emailed.');
+          setModalRedirect(`/heist/${encodeURIComponent(decoded)}`);
+        } else if (
+          paymentIntent.status === 'requires_payment_method' ||
+          paymentIntent.status === 'requires_action' ||
+          paymentIntent.status === 'canceled'
+        ) {
+          setModalMessage('Payment failed or was canceled. Please try again.');
+        } else {
+          setModalMessage(`Unhandled payment status: ${paymentIntent.status}`);
         }
+      }).catch(err => {
+        console.error('Error retrieving PaymentIntent:', err);
+        setModalMessage('An error occurred checking payment status.');
       });
     });
   }, [decoded, navigate]);
@@ -74,10 +89,10 @@ export default function PurchasePage() {
         localStorage.setItem(accessKey, enteredCode);
         navigate(`/heist/${encodeURIComponent(decoded)}/start`);
       } else {
-        alert('Invalid access code.');
+        setModalMessage('Invalid access code.');
       }
     } catch (err) {
-      alert('Failed to verify access code. Please try again later.');
+      setModalMessage('Failed to verify access code. Please try again later.');
     }
   };
 
@@ -150,17 +165,24 @@ export default function PurchasePage() {
           Back to HQ
         </button>
       </Link>
+
+      {modalMessage && (
+        <Modal
+          message={modalMessage}
+          onClose={() => {
+            setModalMessage(null);
+            if (modalRedirect) {
+              navigate(modalRedirect);
+              setModalRedirect(null);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }
 
-
-type CheckoutFormProps = {
-  isProcessing: boolean;
-  setIsProcessing: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-function CheckoutForm({ isProcessing, setIsProcessing }: CheckoutFormProps) {
+function CheckoutForm({ isProcessing, setIsProcessing }: { isProcessing: boolean; setIsProcessing: React.Dispatch<React.SetStateAction<boolean>> }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -179,7 +201,7 @@ function CheckoutForm({ isProcessing, setIsProcessing }: CheckoutFormProps) {
     });
 
     if (result.error) {
-      alert(result.error.message);
+      console.error(result.error);
     }
 
     setIsProcessing(false);
@@ -197,5 +219,34 @@ function CheckoutForm({ isProcessing, setIsProcessing }: CheckoutFormProps) {
         {isProcessing ? 'Processing...' : 'Pay $10'}
       </button>
     </form>
+  );
+}
+
+function Modal({ message, onClose }: { message: string; onClose: () => void }) {
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0, left: 0, right: 0, bottom: 0,
+      backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 9999
+    }}>
+      <div style={{
+        backgroundColor: '#121e30',
+        padding: '2rem',
+        borderRadius: '1rem',
+        boxShadow: '0 0 10px #000',
+        maxWidth: '400px',
+        textAlign: 'center',
+        color: '#E3EAF3'
+      }}>
+        <p style={{ marginBottom: '1.5rem' }}>{message}</p>
+        <button className="developer-button" onClick={onClose}>
+          OK
+        </button>
+      </div>
+    </div>
   );
 }
