@@ -5,6 +5,7 @@ import PurchasePage from './Components/PurchasePage';
 import './App.css';
 import heists from './Data/heistData';
 import CountdownWrapper from './Components/Utilities/CountdownWrapper';
+import ProtectedCountdown  from './Components/Utilities/ProtectedCountdown';
 
 function Home() {
   const navigate = useNavigate();
@@ -51,7 +52,10 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/heist/:heistName" element={<HeistPage />} />
-      <Route path="/heist/:heistName/start" element={<CountdownWrapper />} />
+        <Route
+          path="/heist/:heistName/start"
+          element={<ProtectedCountdown />}
+        />      
       <Route path="/heist/:heistName/objective/:objectiveId" element={<CountdownWrapper />} />
       <Route path="/purchase/:heistName" element={<PurchasePage />} />
     </Routes>
