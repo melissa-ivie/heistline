@@ -17,7 +17,9 @@ jobs:
         working-directory: heistline
         run: |
           npm install
-          VITE_HEISTLINE_ACCESS_TOKEN=${{ secrets.VITE_HEISTLINE_ACCESS_TOKEN }} npm run build
+          VITE_HEISTLINE_ACCESS_TOKEN=${{ secrets.VITE_HEISTLINE_ACCESS_TOKEN }} \
+          VITE_STRIPE_PUBLISHABLE_KEY=${{ secrets.VITE_STRIPE_PUBLISHABLE_KEY }} \
+          npm run build
 
       - name: Upload built site to IONOS
         uses: appleboy/scp-action@v0.1.4
@@ -27,5 +29,5 @@ jobs:
           password: ${{ secrets.IONOS_FTP_PASSWORD }}
           port: 22
           source: "heistline/dist/**"
-          target: "htdocs"
+          target: "htdocs/heistline"
           strip_components: 2

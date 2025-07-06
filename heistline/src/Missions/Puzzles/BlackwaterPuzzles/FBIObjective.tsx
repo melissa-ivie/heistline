@@ -1,6 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import '../App.css';
-import styles from './styleFBIO.module.css';
+import '../../../App.css';
 import { useState } from 'react';
 
 export default function FBIObjective() {

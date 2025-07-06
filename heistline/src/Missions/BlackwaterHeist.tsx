@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import '../App.css';
-import { useCountdown } from '../Components/CountdownContext';
+import { useCountdown } from '../Components/Utilities/CountdownContext';
 import heists from '../Data/heistData';
 
 export default function BlackwaterHeist() {

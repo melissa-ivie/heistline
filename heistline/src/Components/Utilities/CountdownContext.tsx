@@ -18,11 +18,12 @@ export const CountdownProvider = ({
   children: React.ReactNode;
 }) => {
   const [timeLeft, setTimeLeft] = useState(() => {
-    const stored = sessionStorage.getItem(`${heistKey}-timer`);
-    return stored ? parseInt(stored, 10) : 3600;
+    const stored = localStorage.getItem(`${heistKey}-timer`);
+    const value = stored ? parseInt(stored, 10) : NaN;
+    return !isNaN(value) && value > 0 ? value : 3600;
   });
 
-const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null); // ✅ Works in browser
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const stopCountdown = () => {
     if (intervalRef.current) {
@@ -37,7 +38,7 @@ const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null); // ✅ 
     intervalRef.current = setInterval(() => {
       setTimeLeft(prev => {
         const updated = prev > 0 ? prev - 1 : 0;
-        sessionStorage.setItem(`${heistKey}-timer`, updated.toString());
+        localStorage.setItem(`${heistKey}-timer`, updated.toString());
 
         if (updated === 0) stopCountdown();
         return updated;
@@ -47,7 +48,7 @@ const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null); // ✅ 
     return () => {
       stopCountdown();
     };
-  }, []);
+  }, [heistKey]);
 
   return (
     <CountdownContext.Provider value={{ timeLeft, stopCountdown }}>

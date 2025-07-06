@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useCountdown } from '../Components/CountdownContext';
+import { useCountdown } from '../Components/Utilities/CountdownContext';
 import '../App.css';
 import heists from '../Data/heistData';
 import { useState, useEffect } from 'react';
@@ -22,6 +22,10 @@ export default function GlassVeilHeist() {
       return () => clearInterval(interval);
     }
   }, [paused]);
+
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
