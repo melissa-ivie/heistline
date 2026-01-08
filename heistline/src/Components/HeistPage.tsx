@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import heists from '../Data/heistData';
 import '../App.css';
 import { useState } from 'react';
+import { verifyAccessCode } from '../utils/api';
 
 type HeistKey = keyof typeof heists;
 
@@ -31,17 +32,12 @@ export default function HeistPage() {
   const hasAccess = heist.isFree || localAccessCode;
 
   const handleAccessCodeSubmit = async () => {
-    try {
-      const res = await fetch(`https://heistline-access-api.onrender.com/api/verify-access?code=${enteredCode}&heist=${decoded}`);
-      const data = await res.json();
-      if (data.valid) {
-        localStorage.setItem(`${decoded}-access`, enteredCode);
-        navigate(`/heist/${encodeURIComponent(decoded)}/start`);
-      } else {
-        alert('Invalid access code.');
-      }
-    } catch (err) {
-      alert('Failed to verify access code. Please try again later.');
+    const data = await verifyAccessCode(enteredCode, decoded);
+    if (data.valid) {
+      localStorage.setItem(`${decoded}-access`, enteredCode);
+      navigate(`/heist/${encodeURIComponent(decoded)}/start`);
+    } else {
+      alert(data.error || 'Invalid access code.');
     }
   };
 

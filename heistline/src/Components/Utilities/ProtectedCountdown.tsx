@@ -2,6 +2,7 @@ import { useParams, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import heists from '../../Data/heistData';
 import CountdownWrapper from './CountdownWrapper';
+import { verifyAccessCode } from '../../utils/api';
 
 export default function ProtectedCountdown() {
   const { heistName } = useParams();
@@ -31,8 +32,7 @@ export default function ProtectedCountdown() {
       return;
     }
 
-    fetch(`https://heistline-access-api.onrender.com/api/verify-access?code=${localCode}&heist=${decoded}`)
-      .then((res) => res.json())
+    verifyAccessCode(localCode, decoded)
       .then((data) => {
         setValidated(data.valid);
         if (!data.valid) {

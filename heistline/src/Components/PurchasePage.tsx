@@ -5,6 +5,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import type { StripeElementsOptions } from '@stripe/stripe-js';
 import heists from '../Data/heistData';
 import '../App.css';
+import { verifyAccessCode, createPaymentIntent } from '../utils/api';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY!);
 
@@ -57,12 +58,7 @@ export default function PurchasePage() {
   useEffect(() => {
     if (!decoded || !email) return;
 
-    fetch('https://heistline-access-api.onrender.com/api/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, heistName: decoded }),
-    })
-      .then(res => res.json())
+    createPaymentIntent(email, decoded)
       .then(data => {
         if (data.clientSecret) setClientSecret(data.clientSecret);
       })
@@ -82,17 +78,12 @@ export default function PurchasePage() {
   };
 
   const handleAccessCodeSubmit = async () => {
-    try {
-      const res = await fetch(`https://heistline-access-api.onrender.com/api/verify-access?code=${enteredCode}&heist=${decoded}`);
-      const data = await res.json();
-      if (data.valid) {
-        localStorage.setItem(accessKey, enteredCode);
-        navigate(`/heist/${encodeURIComponent(decoded)}/start`);
-      } else {
-        setModalMessage('Invalid access code.');
-      }
-    } catch (err) {
-      setModalMessage('Failed to verify access code. Please try again later.');
+    const data = await verifyAccessCode(enteredCode, decoded);
+    if (data.valid) {
+      localStorage.setItem(accessKey, enteredCode);
+      navigate(`/heist/${encodeURIComponent(decoded)}/start`);
+    } else {
+      setModalMessage(data.error || 'Invalid access code.');
     }
   };
 

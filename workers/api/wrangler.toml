@@ -1,0 +1,19 @@
+name = "heistline-api"
+main = "src/index.ts"
+compatibility_date = "2026-01-08"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "heistline-db"
+database_id = "YOUR_DATABASE_ID" # You'll get this when you create the D1 database
+
+# Environment variables (set these in Cloudflare Dashboard for security)
+# STRIPE_SECRET_KEY - Your Stripe secret key
+# STRIPE_WEBHOOK_SECRET - Your Stripe webhook signing secret
+# HEISTLINE_ACCESS_TOKEN - Your access token
+
+# Routes - this will make your API available at your custom domain
+# routes = [
+#   { pattern = "heistline.com/api/*", zone_name = "heistline.com" }
+# ]
