@@ -122,11 +122,9 @@ export default function PurchasePage() {
           }}
         />
 
-        {clientSecret && (
-          <Elements stripe={stripePromise} options={options}>
-            <CheckoutForm isProcessing={isProcessing} setIsProcessing={setIsProcessing} />
-          </Elements>
-        )}
+        <Elements stripe={stripePromise} options={options}>
+          <CheckoutForm isProcessing={isProcessing} setIsProcessing={setIsProcessing} clientSecret={clientSecret} />
+        </Elements>
 
         <hr style={{ margin: '2rem 0', width: '100%', borderColor: '#2A3244' }} />
 
@@ -173,7 +171,7 @@ export default function PurchasePage() {
   );
 }
 
-function CheckoutForm({ isProcessing, setIsProcessing }: { isProcessing: boolean; setIsProcessing: React.Dispatch<React.SetStateAction<boolean>> }) {
+function CheckoutForm({ isProcessing, setIsProcessing, clientSecret }: { isProcessing: boolean; setIsProcessing: React.Dispatch<React.SetStateAction<boolean>>; clientSecret: string }) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -197,6 +195,14 @@ function CheckoutForm({ isProcessing, setIsProcessing }: { isProcessing: boolean
 
     setIsProcessing(false);
   };
+
+  if (!clientSecret) {
+    return (
+      <div style={{ padding: '1rem', textAlign: 'center', color: '#8b95a5' }}>
+        <p>Enter your email above to continue...</p>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit}>
