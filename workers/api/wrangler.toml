@@ -6,7 +6,7 @@ compatibility_date = "2026-01-08"
 [[d1_databases]]
 binding = "DB"
 database_name = "heistline-db"
-database_id = "YOUR_DATABASE_ID" # You'll get this when you create the D1 database
+database_id = "370f555c-603f-46db-9442-d15c75d0e779"
 
 # Environment variables (set these in Cloudflare Dashboard for security)
 # STRIPE_SECRET_KEY - Your Stripe secret key
