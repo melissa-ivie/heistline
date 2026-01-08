@@ -219,12 +219,12 @@ async function sendAccessCodeEmail(
     <html>
     <head>
       <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0f1a; color: #e3eaf3; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: #121e30; border-radius: 12px; padding: 40px; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0f1a; color: #ffffff; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: #121e30; border-radius: 12px; padding: 40px; color: #ffffff; }
         .code { font-size: 32px; font-weight: bold; color: #4a9eff; letter-spacing: 2px; text-align: center; padding: 20px; background: #0f1c2f; border-radius: 8px; margin: 30px 0; }
-        .title { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
-        .message { line-height: 1.6; margin: 20px 0; }
-        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #2a3244; font-size: 14px; color: #8b95a5; }
+        .title { font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #ffffff; }
+        .message { line-height: 1.6; margin: 20px 0; color: #ffffff; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #2a3244; font-size: 14px; color: #c0c5ce; }
       </style>
     </head>
     <body>
