@@ -231,17 +231,17 @@ async function sendAccessCodeEmail(
       <div class="container">
         <div class="title">🎯 Mission Unlocked!</div>
         <div class="message">
-          Thank you for purchasing access to <strong>${heistName}</strong>!
+          Thank you so much for choosing our small business and supporting independent creators! We're thrilled to have you join us.
         </div>
         <div class="message">
-          Your access code is:
+          Your access code for <strong>${heistName}</strong> is ready. This code will grant you <strong>permanent access</strong> to the mission you purchased.
         </div>
         <div class="code">${accessCode}</div>
         <div class="message">
           Use this code to unlock and start your mission at <a href="https://heistline.com" style="color: #4a9eff;">heistline.com</a>
         </div>
         <div class="footer">
-          This is an automated email. Please save this code for your records.
+          Please save this code for your records. You can use it anytime to access your mission!
         </div>
       </div>
     </body>
@@ -251,14 +251,16 @@ async function sendAccessCodeEmail(
   const textContent = `
 🎯 Mission Unlocked!
 
-Thank you for purchasing access to ${heistName}!
+Thank you so much for choosing our small business and supporting independent creators! We're thrilled to have you join us.
 
-Your access code is: ${accessCode}
+Your access code for ${heistName} is ready. This code will grant you permanent access to the mission you purchased.
+
+Access Code: ${accessCode}
 
 Use this code to unlock and start your mission at https://heistline.com
 
 ---
-This is an automated email. Please save this code for your records.
+Please save this code for your records. You can use it anytime to access your mission!
   `.trim();
 
   // Try Resend first if API key is available
