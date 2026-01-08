@@ -8,6 +8,8 @@ export interface Env {
   STRIPE_SECRET_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
   HEISTLINE_ACCESS_TOKEN: string;
+  RESEND_API_KEY?: string; // Optional: for Resend email service
+  EMAIL_FROM?: string; // Email address to send from (e.g., "Heistline <codes@heistline.com>")
 }
 
 // CORS headers for all responses
@@ -203,27 +205,101 @@ async function verifyStripeSignature(
   return signatures.includes(computedSignature);
 }
 
-// Send access code email (placeholder - integrate with email service)
+// Send access code email
 async function sendAccessCodeEmail(
   email: string,
   accessCode: string,
   heistName: string,
   env: Env
 ): Promise<void> {
-  // TODO: Integrate with Cloudflare Email Workers, Resend, SendGrid, or Mailgun
-  // For now, just log it
-  console.log(`Would send email to ${email}: Access code ${accessCode} for ${heistName}`);
+  const fromEmail = env.EMAIL_FROM || 'noreply@heistline.com';
+  const subject = `Your Heistline Access Code for ${heistName}`;
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0f1a; color: #e3eaf3; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: #121e30; border-radius: 12px; padding: 40px; }
+        .code { font-size: 32px; font-weight: bold; color: #4a9eff; letter-spacing: 2px; text-align: center; padding: 20px; background: #0f1c2f; border-radius: 8px; margin: 30px 0; }
+        .title { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+        .message { line-height: 1.6; margin: 20px 0; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #2a3244; font-size: 14px; color: #8b95a5; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="title">🎯 Mission Unlocked!</div>
+        <div class="message">
+          Thank you for purchasing access to <strong>${heistName}</strong>!
+        </div>
+        <div class="message">
+          Your access code is:
+        </div>
+        <div class="code">${accessCode}</div>
+        <div class="message">
+          Use this code to unlock and start your mission at <a href="https://heistline.com" style="color: #4a9eff;">heistline.com</a>
+        </div>
+        <div class="footer">
+          This is an automated email. Please save this code for your records.
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
 
-  // Example with a simple HTTP email service (you'll need to add your email service)
-  // const emailResponse = await fetch('https://api.your-email-service.com/send', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify({
-  //     to: email,
-  //     subject: `Your Heistline Access Code for ${heistName}`,
-  //     text: `Your access code is: ${accessCode}\n\nUse this code to unlock ${heistName}.`,
-  //   }),
-  // });
+  const textContent = `
+🎯 Mission Unlocked!
+
+Thank you for purchasing access to ${heistName}!
+
+Your access code is: ${accessCode}
+
+Use this code to unlock and start your mission at https://heistline.com
+
+---
+This is an automated email. Please save this code for your records.
+  `.trim();
+
+  // Try Resend first if API key is available
+  if (env.RESEND_API_KEY) {
+    try {
+      const response = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: email,
+          subject: subject,
+          html: htmlContent,
+          text: textContent,
+        }),
+      });
+
+      if (response.ok) {
+        console.log(`Email sent successfully to ${email} via Resend`);
+        return;
+      } else {
+        const errorData = await response.text();
+        console.error('Resend API error:', errorData);
+      }
+    } catch (error) {
+      console.error('Failed to send email via Resend:', error);
+    }
+  }
+
+  // Fallback: Log the email (for testing without email service)
+  console.log(`
+    ===== EMAIL TO SEND =====
+    To: ${email}
+    Subject: ${subject}
+    Access Code: ${accessCode}
+    Heist: ${heistName}
+    =========================
+  `);
 }
 
 // Main worker handler
