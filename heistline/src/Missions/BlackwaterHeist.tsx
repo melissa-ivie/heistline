@@ -171,9 +171,11 @@ export default function BlackwaterHeist() {
             to="/"
             onClick={() => {
               localStorage.setItem(`${decoded}-timer`, '3600');
-              // Reset email puzzle state when restarting mission
+              // Reset ALL puzzle states when restarting mission
+              objectives.forEach((obj) => {
+                localStorage.setItem(`${decoded}-objective-${obj.id}`, '');
+              });
               localStorage.removeItem(`${decoded}-email-attempts-remaining`);
-              localStorage.removeItem(`${decoded}-objective-email-servers`);
             }}
           >
             <button className="developer-button" style={{ marginTop: '1rem' }}>

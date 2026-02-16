@@ -14,6 +14,15 @@ export default function GlassVeilHeist() {
   const [paused, setPaused] = useState(false);
   const [internalTime, setInternalTime] = useState(timeLeft);
 
+  const [completed] = useState<Record<string, boolean>>(() => {
+    const state: Record<string, boolean> = {};
+    objectives.forEach((obj) => {
+      const key = `${decoded}-objective-${obj.id}`;
+      state[obj.id] = localStorage.getItem(key) === 'complete';
+    });
+    return state;
+  });
+
   useEffect(() => {
     if (!paused) {
       const interval = setInterval(() => {
@@ -23,9 +32,28 @@ export default function GlassVeilHeist() {
     }
   }, [paused]);
 
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (!paused) {
+      const allCompleted = Object.values(completed).every(Boolean);
+      const failed = timeLeft <= 0 && !allCompleted;
+
+      if (allCompleted || failed) {
+        document.getElementById('outcome-overlay')?.classList.add('show');
+        stopCountdown();
+        localStorage.setItem(`${decoded}-timer`, '0');
+
+        if (allCompleted) {
+          objectives.forEach((obj) => {
+            localStorage.setItem(`${decoded}-objective-${obj.id}`, '');
+          });
+        }
+      }
+    }
+  }, [completed, timeLeft, stopCountdown, decoded, objectives, paused]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -59,10 +87,10 @@ export default function GlassVeilHeist() {
 
       <div className="objectives-panel">
         {objectives.map((obj) => (
-          <div key={obj.id} className="objective-box">
+          <div key={obj.id} className={`objective-box ${completed[obj.id] ? 'completed' : ''}`}>
             <input
               type="checkbox"
-              checked={localStorage.getItem(`${decoded}-objective-${obj.id}`) === 'complete'}
+              checked={completed[obj.id]}
               readOnly
               disabled
               className="status-checkbox"
@@ -114,6 +142,31 @@ export default function GlassVeilHeist() {
           BACK TO HQ
         </button>
       </Link>
+
+      <div id="outcome-overlay" className="outcome-overlay">
+        <div className="outcome-modal">
+          <h2>{Object.values(completed).every(Boolean) ? '🎉 Mission Complete!' : '💥 Mission Failed'}</h2>
+          <p>
+            {Object.values(completed).every(Boolean)
+              ? "You've completed all objectives and saved the town!"
+              : 'Alarms have been triggered and the mission failed.'}
+          </p>
+          <Link
+            to="/"
+            onClick={() => {
+              localStorage.setItem(`${decoded}-timer`, '3600');
+              // Reset ALL puzzle states when restarting mission
+              objectives.forEach((obj) => {
+                localStorage.setItem(`${decoded}-objective-${obj.id}`, '');
+              });
+            }}
+          >
+            <button className="developer-button" style={{ marginTop: '1rem' }}>
+              Back to HQ
+            </button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
