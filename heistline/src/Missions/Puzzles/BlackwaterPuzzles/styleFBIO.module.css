@@ -1,6 +1,6 @@
 /* Container styling */
 .appContainer {
-  max-width: 600px;
+  max-width: 800px;
   margin: 4rem auto;
   padding: 2rem;
   background-color: #1c1c1c;
@@ -9,6 +9,7 @@
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
 }
 
 /* Title */
@@ -22,9 +23,306 @@
 .panelText {
   font-size: 1.1rem;
   margin-bottom: 2rem;
+  color: #b0b0b0;
 }
 
-/* Developer button (shared style) */
+/* Evidence Container */
+.evidenceContainer {
+  margin: 2rem 0;
+  padding: 2rem;
+  background-color: #252525;
+  border-radius: 10px;
+  border: 1px solid #333;
+}
+
+.evidenceTitle {
+  font-size: 1.5rem;
+  color: #00e0ff;
+  margin-bottom: 0.5rem;
+}
+
+.evidenceSubtext {
+  font-size: 0.95rem;
+  color: #888;
+  margin-bottom: 2rem;
+}
+
+/* Evidence Grid */
+.evidenceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .evidenceGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Evidence Card */
+.evidenceCard {
+  position: relative;
+  padding: 2rem 1rem;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  border: 2px solid #333;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.evidenceCard:hover .evidenceTooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.evidenceLocked {
+  opacity: 0.4;
+  filter: grayscale(100%);
+}
+
+.evidenceLocked .evidenceIcon {
+  color: #555;
+}
+
+.evidenceComplete {
+  border-color: #00e0ff;
+  box-shadow: 0 0 15px rgba(0, 224, 255, 0.3);
+}
+
+.evidenceComplete .evidenceIcon {
+  color: #00e0ff;
+}
+
+/* Icon Wrapper */
+.iconWrapper {
+  margin-bottom: 1rem;
+}
+
+.evidenceIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  display: block;
+  stroke-width: 1.5;
+}
+
+/* Evidence Label */
+.evidenceLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f1f1;
+  margin-top: 0.5rem;
+}
+
+/* Evidence Tooltip */
+.evidenceTooltip {
+  position: absolute;
+  bottom: -2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #f1f1f1;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.evidenceTooltip::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #333;
+}
+
+/* Evidence Checkmark */
+.evidenceCheckmark {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 28px;
+  height: 28px;
+  background-color: #00e0ff;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Mission Briefing */
+.missionBriefing {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #252525;
+  border-radius: 10px;
+  border-left: 4px solid #00e0ff;
+  text-align: left;
+}
+
+.briefingTitle {
+  font-size: 1.3rem;
+  color: #00e0ff;
+  margin-bottom: 1rem;
+}
+
+.briefingText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #c0c0c0;
+  margin-bottom: 1rem;
+}
+
+.briefingText:last-child {
+  margin-bottom: 0;
+}
+
+.briefingText strong {
+  color: #ff6b6b;
+}
+
+/* Submit Button */
+.submitButton {
+  background: linear-gradient(135deg, #00e0ff 0%, #0099cc 100%);
+  color: #000;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 2rem 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 224, 255, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 224, 255, 0.5);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton.submitting {
+  background: linear-gradient(135deg, #666 0%, #444 100%);
+}
+
+/* Loading Spinner */
+.loadingSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #000;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.errorMessage {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(255, 107, 107, 0.1);
+  border: 1px solid #ff6b6b;
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 0.95rem;
+}
+
+/* Success Message */
+.successMessage {
+  margin: 3rem 0;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(0, 224, 255, 0.1) 0%, rgba(0, 153, 204, 0.1) 100%);
+  border-radius: 12px;
+  border: 2px solid #00e0ff;
+}
+
+.successIcon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  background-color: #00e0ff;
+  color: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  animation: successPulse 2s ease infinite;
+}
+
+@keyframes successPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 224, 255, 0.8);
+  }
+}
+
+.successTitle {
+  font-size: 2rem;
+  color: #00e0ff;
+  margin-bottom: 1rem;
+}
+
+.successText {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #c0c0c0;
+}
+
+/* Back Button */
+.backButton {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  background-color: rgba(51, 51, 51, 0.95);
+  color: #f1f1f1;
+  border: 1px solid #555;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  z-index: 10001;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.backButton:hover {
+  background-color: rgba(68, 68, 68, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+/* Developer button (legacy - keeping for compatibility) */
 .developerButton {
   background-color: #00e0ff;
   color: #000;
@@ -37,33 +335,371 @@
   transition: background-color 0.3s ease;
 }
 
-
-/* Input field */
-input[type="password"] {
-  padding: 0.5rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 60%;
-  max-width: 300px;
+/* ===== FIREWALL OVERLAY ===== */
+.firewallOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: firewallPulse 2s ease-in-out infinite;
 }
 
-/* Error text */
-p[style*="color: red"] {
-  margin-top: 0.5rem;
-  font-size: 0.95rem;
+@keyframes firewallPulse {
+  0%, 100% {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, #0a0a0a 0%, #2a0000 50%, #0a0a0a 100%);
+  }
 }
 
-/* Mission Complete Text */
-p[style*="color: green"] {
+.firewallContent {
+  text-align: center;
+  animation: firewallGlitch 3s infinite;
+}
+
+@keyframes firewallGlitch {
+  0%, 90%, 100% {
+    transform: translate(0, 0);
+  }
+  91% {
+    transform: translate(-2px, 2px);
+  }
+  92% {
+    transform: translate(2px, -2px);
+  }
+  93% {
+    transform: translate(-2px, -2px);
+  }
+  94% {
+    transform: translate(2px, 2px);
+  }
+}
+
+.cautionTriangle {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem;
+  color: #ff0000;
+  filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.8));
+  animation: trianglePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes trianglePulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.8));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 40px rgba(255, 0, 0, 1));
+  }
+}
+
+.cautionTriangle svg {
+  width: 100%;
+  height: 100%;
+  stroke-width: 2.5;
+}
+
+.firewallTitle {
+  font-size: 4rem;
   font-weight: bold;
-  font-size: 1.1rem;
+  color: #ff0000;
+  text-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.6);
+  letter-spacing: 8px;
+  margin-bottom: 2rem;
+  font-family: 'Courier New', monospace;
+  animation: textGlow 2s ease-in-out infinite;
 }
 
-/* Hint Image */
-img {
-  border: 2px solid #444;
-  max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0, 224, 255, 0.4);
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.6);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(255, 0, 0, 1), 0 0 60px rgba(255, 0, 0, 0.8), 0 0 80px rgba(255, 0, 0, 0.6);
+  }
+}
+
+.firewallMessage {
+  color: #ff3333;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  line-height: 2;
+  text-shadow: 0 0 10px rgba(255, 51, 51, 0.6);
+}
+
+.firewallMessage p {
+  margin: 0.5rem 0;
+}
+
+.firewallCode {
+  color: #ff6666;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 1rem 0 !important;
+}
+
+.analyzeButton {
+  margin-top: 3rem;
+  background: linear-gradient(135deg, #0a1a0a 0%, #1a3a1a 50%, #0a1a0a 100%);
+  border: 2px solid #00ff00;
+  color: #00ff00;
+  padding: 1rem 2.5rem;
+  font-size: 1.3rem;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.1);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.analyzeButton::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(0, 255, 0, 0.2),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: buttonShimmer 3s infinite;
+}
+
+@keyframes buttonShimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+.analyzeButton:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.6), inset 0 0 30px rgba(0, 255, 0, 0.2);
+  transform: scale(1.05);
+  text-shadow: 0 0 10px #00ff00;
+  background: linear-gradient(135deg, #0f2a0f 0%, #1f4a1f 50%, #0f2a0f 100%);
+}
+
+.analyzeButton:active {
+  transform: scale(0.98);
+}
+
+/* ===== HACKER TERMINAL WINDOW ===== */
+.hackerTerminalContainer {
+  position: fixed;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  z-index: 10000;
+  animation: terminalSlideIn 0.5s ease-out;
+}
+
+@keyframes terminalSlideIn {
+  from {
+    transform: translateY(-50%) translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-50%) translateX(0);
+    opacity: 1;
+  }
+}
+
+.hackerTerminal {
+  width: 500px;
+  max-width: 90vw;
+  max-height: 70vh;
+  background: #000;
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0, 255, 0, 0.4), 0 0 80px rgba(0, 255, 0, 0.2);
+  animation: terminalGlow 2s ease-in-out infinite;
+}
+
+@keyframes terminalGlow {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(0, 255, 0, 0.4), 0 0 80px rgba(0, 255, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(0, 255, 0, 0.6), 0 0 100px rgba(0, 255, 0, 0.3);
+  }
+}
+
+.terminalHeader {
+  background: linear-gradient(90deg, #001a00, #003300, #001a00);
+  padding: 10px 16px;
+  border-bottom: 1px solid #00ff00;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminalDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.terminalDot.red {
+  background: #ff5f56;
+  box-shadow: 0 0 5px #ff5f56;
+  cursor: pointer;
+}
+
+.terminalDot.red:hover {
+  background: #ff3b30;
+  box-shadow: 0 0 10px #ff5f56;
+  transform: scale(1.1);
+}
+
+.terminalDot.yellow {
+  background: #ffbd2e;
+  box-shadow: 0 0 5px #ffbd2e;
+}
+
+.terminalDot.green {
+  background: #27ca40;
+  box-shadow: 0 0 5px #27ca40;
+}
+
+.terminalTitle {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  margin-left: 12px;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.terminalContent {
+  padding: 16px;
+  height: auto;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #000;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.terminalLine {
+  color: #00ff00;
+  margin-bottom: 4px;
+  text-shadow: 0 0 3px #00ff00;
+}
+
+.terminalPrompt {
+  color: #00ff00;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.terminalHighlight {
+  color: #ffff00;
+  font-weight: bold;
+  text-shadow: 0 0 5px #ffff00;
+  animation: textFlicker 1.5s infinite;
+}
+
+@keyframes textFlicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.terminalBlink {
+  color: #00ff00;
+  animation: blink 1s infinite;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Scrollbar styling for terminal */
+.terminalContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminalContent::-webkit-scrollbar-track {
+  background: #001a00;
+}
+
+.terminalContent::-webkit-scrollbar-thumb {
+  background: #00ff00;
+  border-radius: 4px;
+}
+
+.terminalContent::-webkit-scrollbar-thumb:hover {
+  background: #00cc00;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media (max-width: 768px) {
+  .firewallTitle {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+  }
+
+  .cautionTriangle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .firewallMessage {
+    font-size: 0.9rem;
+  }
+
+  .analyzeButton {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .hackerTerminalContainer {
+    right: 2.5%;
+    left: 2.5%;
+    transform: translateY(-50%);
+  }
+
+  .hackerTerminal {
+    width: 100%;
+    max-width: none;
+  }
+
+  .backButton {
+    bottom: 16px;
+    left: 16px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }

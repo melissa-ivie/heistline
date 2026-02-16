@@ -22,10 +22,10 @@ const heists = {
         Intercepted communications indicate Nexacore is planning to sabotage Eli’s flight before he can deliver the evidence. Your team must move fast.
 
         Mission Objectives:
-        - Prevent the plane from taking off or ensure it lands safely.
-        - Recover the original water contamination report from Nexacore’s buried R&D archive.
+        - Stop a deadly plot designed to eliminate key witnesses.
+        - Recover the original water contamination report from a Nexacore executive's computer.
         - Trace internal communications and extract the CEO’s incriminating email.
-        - Deliver the files anonymously to the FDA and FBI without leaving a digital trail.
+        - Deliver the files anonymously to the FBI without leaving a digital trail.
 
         Time is running out- and the town doesn’t know it’s dying yet.
 
