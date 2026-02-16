@@ -43,6 +43,8 @@ export default function BlackwaterHeist() {
           objectives.forEach((obj) => {
             localStorage.setItem(`${decoded}-objective-${obj.id}`, '');
           });
+          // Also reset email attempts on mission completion
+          localStorage.removeItem(`${decoded}-email-attempts-remaining`);
         }
       }
     }
@@ -163,12 +165,15 @@ export default function BlackwaterHeist() {
           <p>
             {Object.values(completed).every(Boolean)
               ? "You've completed all objectives and saved the town!"
-              : 'Time ran out before all objectives were completed.'}
+              : 'Alarms have been triggered and the mission failed.'}
           </p>
           <Link
             to="/"
             onClick={() => {
               localStorage.setItem(`${decoded}-timer`, '3600');
+              // Reset email puzzle state when restarting mission
+              localStorage.removeItem(`${decoded}-email-attempts-remaining`);
+              localStorage.removeItem(`${decoded}-objective-email-servers`);
             }}
           >
             <button className="developer-button" style={{ marginTop: '1rem' }}>
