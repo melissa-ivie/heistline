@@ -1,0 +1,1757 @@
+/* Contamination Report Puzzle Styles */
+
+/* ===== INITIAL PHASE - Hacker Button ===== */
+.initialContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.hackerButton {
+  background: linear-gradient(135deg, #0a1a0a 0%, #1a3a1a 50%, #0a1a0a 100%);
+  border: 2px solid #00ff00;
+  color: #00ff00;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.1);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hackerButton::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(0, 255, 0, 0.1),
+    transparent
+  );
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.hackerButton:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.5), inset 0 0 30px rgba(0, 255, 0, 0.2);
+  transform: scale(1.02);
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.hackerButton:active {
+  transform: scale(0.98);
+}
+
+/* ===== HACKING ANIMATION PHASE ===== */
+.hackingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.hackingWindow {
+  width: 90%;
+  max-width: 900px;
+  height: 70vh;
+  background: #000;
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(0, 255, 0, 0.3);
+}
+
+.hackingWindowHeader {
+  background: linear-gradient(90deg, #001a00, #003300, #001a00);
+  padding: 10px 16px;
+  border-bottom: 1px solid #00ff00;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminalDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminalDot.red { background: #ff5f56; }
+.terminalDot.yellow { background: #ffbd2e; }
+.terminalDot.green { background: #27ca40; }
+
+.terminalTitle {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  margin-left: 12px;
+}
+
+.hackingContent {
+  padding: 16px;
+  height: calc(100% - 50px);
+  overflow: hidden;
+  position: relative;
+  background: #000;
+}
+
+.matrixContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.matrixLine {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInLine 0.1s forwards;
+  white-space: pre-wrap;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+@keyframes fadeInLine {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  background: #00ff00;
+  animation: blink 0.8s infinite;
+  vertical-align: middle;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ===== LOGIN WINDOW PHASE ===== */
+.loginWindowContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 5%;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.loginWindow {
+  width: 500px;
+  max-width: 90vw;
+  max-height: 85vh;
+  background: linear-gradient(180deg, #1e5799 0%, #2989d8 20%, #7db9e8 100%);
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: windowPopIn 0.4s ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  pointer-events: auto;
+  position: relative;
+}
+
+.loginWindowContent {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Window chrome - like a real OS window */
+.windowChrome {
+  background: linear-gradient(180deg, #e8e8e8 0%, #d4d4d4 100%);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #b0b0b0;
+}
+
+.windowDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.windowDot.close { background: #ff5f56; border: 1px solid #e0443e; }
+.windowDot.minimize { background: #ffbd2e; border: 1px solid #dea123; }
+.windowDot.maximize { background: #27ca40; border: 1px solid #1aab29; }
+
+.windowTitle {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  color: #4a4a4a;
+  font-weight: 500;
+}
+
+@keyframes windowPopIn {
+  from {
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.nexacoreHeader {
+  background: linear-gradient(180deg, #0062cc 0%, #1e88e5 50%, #42a5f5 100%);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.nexacoreLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.logoIcon {
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+
+.logoIcon::before {
+  content: 'N';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 40px;
+  font-weight: bold;
+  color: #42a5f5;
+  background: linear-gradient(135deg, #42a5f5, #1e88e5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: skewX(-10deg);
+}
+
+.logoText {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.loginFormCard {
+  background: white;
+  margin: 20px;
+  border-radius: 12px;
+  padding: 28px 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  flex-grow: 0;
+}
+
+.loginTitle {
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.loginDivider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ddd, transparent);
+  margin: 16px 0 24px;
+}
+
+.inputGroup {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 18px;
+  pointer-events: none;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginInput {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 48px;
+  padding: 0 14px 0 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #f8f9fa;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+  line-height: normal;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.inputGroup .inputIcon ~ .loginInput {
+  padding-left: 46px;
+}
+
+.loginInput:focus {
+  border-color: #1e88e5;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+  background: white;
+}
+
+.loginInput::placeholder {
+  color: #aaa;
+}
+
+.loginButton {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(180deg, #1e88e5 0%, #1565c0 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 8px;
+}
+
+.loginButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30, 136, 229, 0.4);
+}
+
+.loginButton:active {
+  transform: translateY(0);
+}
+
+.forgotPassword {
+  color: #1e88e5;
+  text-decoration: underline;
+  font-size: 15px;
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+}
+
+.loginError {
+  color: #dc3545;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 12px;
+  padding: 8px;
+  background: #fff5f5;
+  border-radius: 4px;
+  border: 1px solid #ffcdd2;
+}
+
+.facebookLink {
+  display: block;
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  color: #1877f2;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.facebookLink:hover {
+  color: #0d5bba;
+}
+
+/* ===== FORGOT PASSWORD MODAL ===== */
+/* This appears ON TOP of the login window */
+.securityModalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+  border-radius: 12px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.securityModal {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  width: 340px;
+  max-width: 95%;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+  animation: modalPopIn 0.25s ease-out;
+  margin: 16px;
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.securityModalHeader {
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+  color: white;
+  padding: 14px 20px;
+  margin: -24px -24px 20px;
+  border-radius: 10px 10px 0 0;
+  text-align: center;
+}
+
+.securityModalHeader h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.securityQuestion {
+  margin-bottom: 14px;
+}
+
+.securityQuestion label {
+  display: block;
+  color: #333;
+  font-size: 13px;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.securityQuestion input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.securityQuestion input:focus {
+  border-color: #1e88e5;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 136, 229, 0.4);
+}
+
+.errorMessage {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 13px;
+  padding: 8px;
+  background: #fff5f5;
+  border-radius: 6px;
+  border: 1px solid #ffcdd2;
+}
+
+.cancelButton {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background 0.2s;
+}
+
+.cancelButton:hover {
+  background: #f5f5f5;
+}
+
+/* ===== CONTAMINATION REPORT PHASE ===== */
+.reportContainer {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #f5f0e6;
+  border-radius: 4px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+  position: relative;
+}
+
+.reportContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.reportHeader {
+  background: linear-gradient(135deg, #1a365d 0%, #2c5282 50%, #1a365d 100%);
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.reportHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reportLogoIcon {
+  color: #63b3ed;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.reportLogoText {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.reportLogoSubtext {
+  color: #a0aec0;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.classifiedStamp {
+  background: #c53030;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  border: 2px solid #9b2c2c;
+  transform: rotate(3deg);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.reportTitleBar {
+  background: #2d3748;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.biohazardIcon {
+  color: #ecc94b;
+  font-size: 28px;
+}
+
+.reportTitle {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+.reportBody {
+  padding: 24px;
+  color: #2d3748;
+  position: relative;
+}
+
+.reportMeta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #cbd5e0;
+}
+
+.metaItem {
+  font-size: 14px;
+}
+
+.metaLabel {
+  font-weight: bold;
+  color: #4a5568;
+  margin-right: 8px;
+}
+
+.metaValue {
+  color: #2d3748;
+}
+
+.investigatorLine {
+  font-size: 14px;
+  color: #4a5568;
+  margin-bottom: 20px;
+}
+
+.statusSection {
+  background: linear-gradient(135deg, #c53030, #9b2c2c);
+  color: white;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.statusHeader {
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
+
+.statusTitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.statusText {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.healthRisksSection {
+  background: #edf2f7;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.healthRisksHeader {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #4a5568;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.healthRisksGrid {
+  display: flex;
+  gap: 24px;
+}
+
+.healthRisksList {
+  flex: 1;
+}
+
+.healthRiskItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.warningIcon {
+  color: #dd6b20;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.riskTitle {
+  font-weight: bold;
+  color: #2d3748;
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.riskDescription {
+  font-size: 13px;
+  color: #718096;
+  line-height: 1.4;
+}
+
+.contaminationBadge {
+  background: linear-gradient(135deg, #c53030, #9b2c2c);
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 140px;
+}
+
+.contaminationBadgeLabel {
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.contaminationBadgeTitle {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.contaminationBadgeValue {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.contaminationBadgeUnit {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.ppmChartSection {
+  margin-bottom: 24px;
+}
+
+.ppmChartLabel {
+  font-size: 12px;
+  color: #4a5568;
+  margin-bottom: 12px;
+}
+
+.ppmChart {
+  background: #edf2f7;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.chartBars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 150px;
+  padding: 0 8px;
+  border-bottom: 2px solid #a0aec0;
+  margin-bottom: 8px;
+}
+
+.chartBar {
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.barFill {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.5s ease-out;
+}
+
+.barFill.safe { background: linear-gradient(180deg, #48bb78, #38a169); }
+.barFill.warning { background: linear-gradient(180deg, #ed8936, #dd6b20); }
+.barFill.danger { background: linear-gradient(180deg, #fc8181, #e53e3e); }
+.barFill.critical { background: linear-gradient(180deg, #e53e3e, #c53030); }
+
+.barValue {
+  position: absolute;
+  top: -20px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.chartLabels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.chartLabel {
+  width: 40px;
+  text-align: center;
+  font-size: 10px;
+  color: #718096;
+}
+
+.safeLimitLine {
+  position: relative;
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 2px dashed #48bb78;
+}
+
+.safeLimitLabel {
+  font-size: 11px;
+  color: #48bb78;
+  font-weight: bold;
+}
+
+.publicAlert {
+  background: #fefcbf;
+  border: 2px solid #ecc94b;
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.publicAlertTitle {
+  font-weight: bold;
+  color: #744210;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.publicAlertText {
+  color: #975a16;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.publicAlertWarning {
+  color: #c53030;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.confidentialFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #c53030;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding-top: 16px;
+  border-top: 1px solid #cbd5e0;
+}
+
+.downloadButton {
+  display: block;
+  width: calc(100% - 48px);
+  margin: 0 24px 24px;
+  padding: 16px;
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.downloadButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(56, 161, 105, 0.4);
+}
+
+.downloadButton:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loadingSpinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== TOAST NOTIFICATIONS ===== */
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  z-index: 9999;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  animation: slideInToast 0.4s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toastSuccess {
+  background: linear-gradient(135deg, #38a169, #2f855a);
+}
+
+.toastError {
+  background: linear-gradient(135deg, #e53e3e, #c53030);
+}
+
+@keyframes slideInToast {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ===== BACK BUTTON ===== */
+.backButton {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  padding: 12px 24px;
+  background: rgba(15, 28, 47, 0.9);
+  border: 1px solid #4a5568;
+  color: #a9d1e8;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 50;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.backButton:hover {
+  background: rgba(28, 45, 69, 0.95);
+  transform: scale(1.02);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .loginWindow {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .reportContainer {
+    margin: 1rem;
+    border-radius: 4px;
+  }
+
+  .healthRisksGrid {
+    flex-direction: column;
+  }
+
+  .contaminationBadge {
+    width: 100%;
+  }
+
+  .chartBars {
+    height: 120px;
+  }
+
+  .chartBar {
+    width: 30px;
+  }
+
+  .reportMeta {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .securityModal {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .securityModalHeader {
+    margin: -16px -16px 16px;
+    padding: 12px 16px;
+  }
+}
+
+/* ===== FACEBOOK WINDOW ===== */
+.facebookWindowContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 5%;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.facebookWindow {
+  width: 550px;
+  max-width: 90vw;
+  max-height: 85vh;
+  background: #f0f2f5;
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: windowPopIn 0.4s ease-out forwards;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  pointer-events: auto;
+  position: relative;
+}
+
+.facebookWindowContent {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #f0f2f5;
+}
+
+/* Facebook Header/Navbar */
+.fbNavbar {
+  background: #fff;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.fbLogo {
+  color: #1877f2;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.fbSearchBar {
+  flex: 1;
+  background: #f0f2f5;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #65676b;
+}
+
+.fbSearchBar:focus {
+  outline: none;
+  background: #e4e6e9;
+}
+
+.fbNavIcons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.fbNavIcon {
+  width: 36px;
+  height: 36px;
+  background: #e4e6e9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.fbNavIcon:hover {
+  background: #d8dadf;
+}
+
+/* Profile Header */
+.fbProfileHeader {
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  position: relative;
+}
+
+.fbCoverPhoto {
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  background-color: #3a5a40;
+}
+
+.fbProfileInfo {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 20px 16px;
+  margin-top: -50px;
+  position: relative;
+}
+
+.fbProfilePic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background: #ccc;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.fbProfileName {
+  margin-left: 16px;
+  padding-bottom: 8px;
+}
+
+.fbProfileName h1 {
+  color: #fff;
+  font-size: 26px;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.fbProfileActions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.fbEditProfileBtn {
+  background: #e4e6e9;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fbEditProfileBtn:hover {
+  background: #d8dadf;
+}
+
+/* Profile Tabs */
+.fbProfileTabs {
+  background: #fff;
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  padding: 0 16px;
+}
+
+.fbTab {
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #65676b;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+}
+
+.fbTab:hover {
+  background: #f0f2f5;
+  border-radius: 8px 8px 0 0;
+}
+
+.fbTab.active {
+  color: #1877f2;
+  border-bottom-color: #1877f2;
+}
+
+/* Profile Body */
+.fbProfileBody {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+}
+
+.fbMainColumn {
+  flex: 1;
+}
+
+.fbSidebar {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+/* Cards */
+.fbCard {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.fbCardHeader {
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 17px;
+  color: #050505;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fbCardHeader span {
+  color: #65676b;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.fbCardContent {
+  padding: 0 16px 16px;
+}
+
+/* Intro/Bio */
+.fbIntro {
+  padding: 16px;
+}
+
+.fbIntroItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #050505;
+}
+
+.fbIntroIcon {
+  color: #65676b;
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+/* Posts */
+.fbPost {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  margin-bottom: 16px;
+}
+
+.fbPostHeader {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 10px;
+}
+
+.fbPostAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ccc;
+  background-size: cover;
+  background-position: center;
+}
+
+.fbPostMeta {
+  flex: 1;
+}
+
+.fbPostAuthor {
+  font-weight: 600;
+  font-size: 14px;
+  color: #050505;
+  cursor: pointer;
+}
+
+.fbPostAuthor:hover {
+  text-decoration: underline;
+}
+
+.fbPostTime {
+  font-size: 12px;
+  color: #65676b;
+}
+
+.fbPostContent {
+  padding: 0 16px 12px;
+  font-size: 14px;
+  color: #050505;
+  line-height: 1.4;
+}
+
+.fbPostImage {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  background: #f0f2f5;
+  background-size: cover;
+  background-position: center;
+}
+
+.fbPostActions {
+  display: flex;
+  border-top: 1px solid #ddd;
+  padding: 4px 16px;
+}
+
+.fbPostAction {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  color: #65676b;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.fbPostAction:hover {
+  background: #f0f2f5;
+}
+
+.fbPostStats {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-size: 13px;
+  color: #65676b;
+}
+
+.fbReactions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Comments */
+.fbComments {
+  padding: 0 16px 12px;
+  border-top: 1px solid #f0f2f5;
+}
+
+.fbComment {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.fbCommentAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ccc;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.fbCommentBubble {
+  background: #f0f2f5;
+  border-radius: 18px;
+  padding: 8px 12px;
+  max-width: 80%;
+}
+
+.fbCommentAuthor {
+  font-weight: 600;
+  font-size: 13px;
+  color: #050505;
+  cursor: pointer;
+}
+
+.fbCommentAuthor:hover {
+  text-decoration: underline;
+}
+
+.fbCommentText {
+  font-size: 13px;
+  color: #050505;
+}
+
+.fbCommentActions {
+  display: flex;
+  gap: 12px;
+  padding-left: 12px;
+  margin-top: 2px;
+}
+
+.fbCommentAction {
+  font-size: 12px;
+  color: #65676b;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fbCommentAction:hover {
+  text-decoration: underline;
+}
+
+/* Friends Grid */
+.fbFriendsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.fbFriendCard {
+  background: #f0f2f5;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.fbFriendCard:hover {
+  transform: scale(1.02);
+}
+
+.fbFriendPhoto {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #ccc;
+  background-size: cover;
+  background-position: center;
+}
+
+.fbFriendName {
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #050505;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fbSeeAll {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  color: #1877f2;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.fbSeeAll:hover {
+  text-decoration: underline;
+}
+
+/* About Page */
+.fbAboutContainer {
+  display: flex;
+  background: #fff;
+  border-radius: 8px;
+  margin: 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.fbAboutSidebar {
+  width: 200px;
+  border-right: 1px solid #ddd;
+  padding: 8px 0;
+}
+
+.fbAboutTab {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #050505;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fbAboutTab:hover {
+  background: #f0f2f5;
+}
+
+.fbAboutTab.active {
+  background: #e7f3ff;
+  color: #1877f2;
+  font-weight: 600;
+  border-left: 3px solid #1877f2;
+}
+
+.fbAboutTabIcon {
+  font-size: 18px;
+  color: #65676b;
+}
+
+.fbAboutTab.active .fbAboutTabIcon {
+  color: #1877f2;
+}
+
+.fbAboutContent {
+  flex: 1;
+  padding: 16px 24px;
+}
+
+.fbAboutSection {
+  margin-bottom: 24px;
+}
+
+.fbAboutSectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #050505;
+  margin-bottom: 16px;
+}
+
+.fbAboutItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 8px 0;
+}
+
+.fbAboutItemIcon {
+  font-size: 20px;
+  color: #65676b;
+  width: 28px;
+  text-align: center;
+}
+
+.fbAboutItemContent {
+  flex: 1;
+}
+
+.fbAboutItemLabel {
+  font-size: 13px;
+  color: #65676b;
+}
+
+.fbAboutItemValue {
+  font-size: 15px;
+  color: #050505;
+  font-weight: 500;
+}
+
+.fbFamilyMember {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.fbFamilyMember:hover {
+  background: #f0f2f5;
+}
+
+.fbFamilyPhoto {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ccc;
+  background-size: cover;
+  background-position: center;
+}
+
+.fbFamilyInfo {
+  flex: 1;
+}
+
+.fbFamilyName {
+  font-size: 15px;
+  font-weight: 600;
+  color: #050505;
+}
+
+.fbFamilyRelation {
+  font-size: 13px;
+  color: #65676b;
+}
+
+/* Login Required Message */
+.fbLoginRequired {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: #65676b;
+}
+
+.fbLoginRequired h3 {
+  color: #050505;
+  margin-bottom: 8px;
+}
+
+.fbLoginRequired p {
+  font-size: 14px;
+}
+
+/* Back Navigation */
+.fbBackBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  color: #1877f2;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.fbBackBtn:hover {
+  background: #e7f3ff;
+}
+
+/* Close button for Facebook window */
+.fbCloseBtn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  background: rgba(0,0,0,0.1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #65676b;
+  z-index: 20;
+}
+
+.fbCloseBtn:hover {
+  background: rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+  .facebookWindow {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .fbProfileBody {
+    flex-direction: column;
+  }
+
+  .fbSidebar {
+    width: 100%;
+  }
+
+  .fbAboutContainer {
+    flex-direction: column;
+  }
+
+  .fbAboutSidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    overflow-x: auto;
+  }
+
+  .fbAboutTab {
+    white-space: nowrap;
+  }
+}

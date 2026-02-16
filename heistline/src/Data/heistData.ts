@@ -1,14 +1,14 @@
 import BlackwaterHeist from '../Missions/BlackwaterHeist';
-import AirportObjective from '../Missions/Puzzles/BlackwaterPuzzles/AirportObjective';
+import AirportObjective from '../Missions/Puzzles/BlackwaterPuzzles/AirportPuzzle/AirportObjective';
 import ContaminationReportObjective from '../Missions/Puzzles/BlackwaterPuzzles/ContaminationReportObjective';
 import EmailServersObjective from '../Missions/Puzzles/BlackwaterPuzzles/EmailServersObjective';
 import FBIObjective from '../Missions/Puzzles/BlackwaterPuzzles/FBIObjective';
 
 import GlassVeilHeist from '../Missions/GlassVeilHeist';
-import SurveillanceShutdown from '../Missions/Puzzles/GlassVeilPuzzles/SurveillanceShutdownObjective';
-import IdentityWipe from '../Missions/Puzzles/GlassVeilPuzzles/IdentityWipeObjective';
 import EmbassyEscape from '../Missions/Puzzles/GlassVeilPuzzles/EmbassyEscapeObjective';
+import IdentityWipe from '../Missions/Puzzles/GlassVeilPuzzles/IdentityWipeObjective';
 import SmugglerContact from '../Missions/Puzzles/GlassVeilPuzzles/SmugglerContactObjective';
+import SurveillanceShutdown from '../Missions/Puzzles/GlassVeilPuzzles/SurveillanceShutdownObjective';
 
 const heists = {
   'Operation Blackwater': {
