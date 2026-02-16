@@ -1,7 +1,7 @@
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import styles from './EmailServersStyles.module.css';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import smokingGunImage from '../../../assets/ceo email.png';
+import styles from './EmailServersStyles.module.css';
 
 type Phase = 'email-list' | 'email-detail' | 'hacking' | 'success';
 
@@ -30,7 +30,7 @@ Alfred`
   },
   {
     id: 'email2',
-    from: 'writesusie@email.com',
+    from: 'suebird1982@comcast.net',
     to: 'KRiddle@Poliform.org',
     subject: 'Jeannie & Gene Were Adorable!',
     body: `Hi Dr. Riddle!!
@@ -74,7 +74,7 @@ Jeannie`
   },
   {
     id: 'email5',
-    from: 'writesusie@email.com',
+    from: 'suebird1982@comcast.net',
     to: 'Jeannie.Bently@nexacore.net',
     subject: 'Across the Table?! Bold Move, Jeannie!',
     body: `Jeannie!!!
@@ -106,7 +106,7 @@ For reference, my table will also contain the following people:
 • Daryl Fowler
 • Alfred Koch
 • David Jones
-• Susan Wright
+• Susan Jones
 • Eugene Martinez
 • Jeannie Bently
 • Kirsten Riddle
