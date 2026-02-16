@@ -24,7 +24,6 @@ export default function FBIObjective() {
 
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showFirewall, setShowFirewall] = useState(true);
   const [showTerminal, setShowTerminal] = useState(false);
 
   // Check for evidence completion on mount and when storage changes
@@ -74,7 +73,7 @@ export default function FBIObjective() {
   return (
     <div className={styles.appContainer}>
       {/* Firewall Overlay */}
-      {showFirewall && (
+      {
         <div className={styles.firewallOverlay} id="firewall-barrier">
           <div className={styles.firewallContent}>
             <div className={styles.cautionTriangle}>
@@ -160,7 +159,7 @@ export default function FBIObjective() {
           </div>
           )}
         </div>
-      )}
+      }
 
       <h1 className={styles.appTitle}>Objective: FBI Submission</h1>
       <p className={styles.panelText}>
