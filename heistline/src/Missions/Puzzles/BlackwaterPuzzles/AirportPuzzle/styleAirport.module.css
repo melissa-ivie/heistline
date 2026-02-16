@@ -1,0 +1,664 @@
+.imgDemo {
+  width: 100%;
+  height: auto;
+  background-image: url('resources/plane-seats-base.png');
+  scale: 0.8;
+  /*filter:blur(1.5rem);*/
+}
+
+/*real*/
+.seatingPlan {
+  width: 500px;
+  height: 500px;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+  /*filter:blur(1.5rem);*/
+}
+
+
+/* Container styling */
+.appContainer {
+  max-width: 600px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: #1c1c1c;
+  color: #f1f1f1;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+.appTitle {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #00e0ff;
+}
+
+/* Mission text */
+.panelText {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* Developer button (shared style) */
+.developerButton {
+  background-color: #00e0ff;
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  margin: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+/* Input field */
+input[type="password"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 60%;
+  max-width: 300px;
+}
+
+/* Error text */
+p[style*="color: red"] {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Mission Complete Text */
+p[style*="color: green"] {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Hint Image */
+img {
+  border: 2px solid #444;
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 224, 255, 0.4);
+}
+
+/* Main controls container */
+.controlsContainer {
+  display: flex;
+  gap: 47px;
+  align-items: stretch;
+  justify-content: center;
+  margin: 2rem 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Vertical slider container */
+.verticalSliderContainer {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 23px;
+}
+
+/* Height wrapper for vertical sliders */
+.verticalSliderHeight {
+  height: 500px;
+}
+
+/* Middle section with image and sliders */
+.middleSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Horizontal slider container */
+.horizontalSliderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 23px;
+}
+
+/* Width wrapper for horizontal sliders */
+.horizontalSliderWidth {
+  width: 500px;
+}
+
+/* Seating plan container */
+.seatingPlanContainer {
+  position: relative;
+  margin: 31px 0;
+}
+
+/* Dots overlay container */
+.dotsContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  pointer-events: none;
+}
+
+/* Individual dot */
+.dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  opacity: 0.6;
+}
+
+/* Red dot color */
+.dotRed {
+  background-color: rgb(239, 68, 68);
+}
+
+/* Blue dot color */
+.dotBlue {
+  background-color: rgb(59, 130, 246);
+  mix-blend-mode: multiply;
+}
+
+/* Mission Brief */
+.missionBrief {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-left: 4px solid #dc3545;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0 2rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.briefHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.briefLabel {
+  color: #dc3545;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.briefTag {
+  background: #dc3545;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.briefContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.briefText {
+  color: #e9ecef;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.briefText strong {
+  color: #5bc0de;
+  font-weight: 700;
+}
+
+/* Seat label (revealed by purple overlap) */
+.seatLabel {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 0 20px rgba(255, 255, 255, 0.6),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+/* Button with margin top */
+.buttonWithMargin {
+  margin-top: 1rem;
+}
+
+/* Slider track - horizontal */
+.sliderTrackHorizontal {
+  position: relative;
+  height: 23px;
+  width: 100%;
+  background-color: #e2e8f0;
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Slider track - vertical */
+.sliderTrackVertical {
+  position: relative;
+  width: 23px;
+  height: 100%;
+  background-color: #e2e8f0;
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Slider fill - horizontal */
+.sliderFillHorizontal {
+  position: absolute;
+  height: 100%;
+  border-radius: 9999px;
+}
+
+/* Slider fill - vertical */
+.sliderFillVertical {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 9999px;
+}
+
+/* Red gradient horizontal */
+.gradientRedHorizontal {
+  background: linear-gradient(to right, rgb(248, 113, 113), rgb(220, 38, 38));
+}
+
+/* Red gradient vertical */
+.gradientRedVertical {
+  background: linear-gradient(to top, rgb(248, 113, 113), rgb(220, 38, 38));
+}
+
+/* Blue gradient horizontal */
+.gradientBlueHorizontal {
+  background: linear-gradient(to right, rgb(96, 165, 250), rgb(37, 99, 235));
+}
+
+/* Blue gradient vertical */
+.gradientBlueVertical {
+  background: linear-gradient(to top, rgb(96, 165, 250), rgb(37, 99, 235));
+}
+
+/* Slider handle - horizontal */
+.sliderHandleHorizontal {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 47px;
+  height: 47px;
+  background-color: white;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Slider handle - vertical */
+.sliderHandleVertical {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 47px;
+  height: 47px;
+  background-color: white;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Handle grabbing state */
+.sliderHandleGrabbing {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Red border for handle */
+.borderRed {
+  border: 8px solid rgb(239, 68, 68);
+}
+
+/* Blue border for handle */
+.borderBlue {
+  border: 8px solid rgb(59, 130, 246);
+}
+
+/* Ticket Container */
+.ticketContainer {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+/* Plane Ticket */
+.ticket {
+  background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  width: 600px;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #dee2e6;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Perforated edge effect on right side */
+.ticket::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 15px;
+  background:
+    radial-gradient(circle at 0 0, transparent 5px, #f8f9fa 5px) 0 0 / 10px 15px,
+    radial-gradient(circle at 0 100%, transparent 5px, #f8f9fa 5px) 0 100% / 10px 15px;
+  background-repeat: repeat-y;
+}
+
+/* Blue accent stripe at bottom */
+.ticket::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #c25bde 0%, #b14ab8 100%);
+}
+
+.ticketHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 2px dashed #adb5bd;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.ticketTitle {
+  color: #a15bde;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.ticketBarcode {
+  color: #343a40;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+.ticketBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.ticketRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ticketLabel {
+  color: #6c757d;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ticketValue {
+  color: #212529;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.seatInput {
+  background: white;
+  border: 2px solid #ced4da;
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #212529;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  resize: none;
+  font-family: 'Courier New', monospace;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+}
+
+.seatInput:focus {
+  outline: none;
+  border-color: #5bc0de;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.075),
+    0 0 0 3px rgba(91, 192, 222, 0.25);
+}
+
+.seatInput::placeholder {
+  color: #adb5bd;
+  letter-spacing: normal;
+  text-transform: none;
+  font-size: 0.85rem;
+  font-weight: normal;
+}
+
+.searchButton {
+  background: linear-gradient(to bottom, #b75bde 0%, #974ab8 100%);
+  color: white;
+  border: 1px solid #46b8da;
+  padding: 0.9rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.searchButton:hover {
+  background: linear-gradient(to bottom, #4db8d8 0%, #3a8fa0 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.searchButton:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.searchButton:disabled {
+  background: #adb5bd;
+  border-color: #adb5bd;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+/* Validation Feedback */
+.validationFeedback {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.correctFeedback,
+.incorrectFeedback {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 1rem;
+  border-radius: 8px;
+  background: white;
+}
+
+.correctFeedback {
+  color: #10b981;
+  border: 2px solid #10b981;
+}
+
+.incorrectFeedback {
+  color: #ef4444;
+  border: 2px solid #ef4444;
+}
+
+/* Checkmark Animation */
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #10b981;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #10b981;
+  animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+
+.checkmarkCircle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #10b981;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmarkCheck {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke: #10b981;
+  stroke-width: 3;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #10b981;
+  }
+}
+
+/* X Mark Animation */
+.xmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #ef4444;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #ef4444;
+  animation: fillRed 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+}
+
+.xmarkCircle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #ef4444;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.xmarkX {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke: #ef4444;
+  stroke-width: 3;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes fillRed {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #ef4444;
+  }
+}

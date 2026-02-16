@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../../../App.css';
 
 export default function IdentityWipe() {
@@ -7,6 +7,10 @@ export default function IdentityWipe() {
   const [complete, setComplete] = useState(
     localStorage.getItem(`${heistName}-objective-identity-wipe`) === 'complete'
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = () => {
     const updated = !complete;

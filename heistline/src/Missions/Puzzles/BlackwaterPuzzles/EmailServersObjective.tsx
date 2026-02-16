@@ -139,6 +139,7 @@ export default function EmailServersObjective() {
     localStorage.getItem(`${decoded}-objective-email-servers`) === 'complete'
   );
 
+<<<<<<< HEAD
   // Restore phase based on state on mount
   useEffect(() => {
     if (complete) {
@@ -216,6 +217,16 @@ export default function EmailServersObjective() {
   const handleEmailClick = (email: Email) => {
     setSelectedEmail(email);
     setPhase('email-detail');
+=======
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleChange = () => {
+    const updated = !complete;
+    setComplete(updated);
+    localStorage.setItem(`${heistName}-objective-email-servers`, updated ? 'complete' : '');
+>>>>>>> ab774a90ef63058e8915c3858ede6354de5abc8e
   };
 
   const handleBackToList = () => {
