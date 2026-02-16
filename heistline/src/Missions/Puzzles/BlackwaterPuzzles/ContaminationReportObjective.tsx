@@ -77,6 +77,11 @@ export default function ContaminationReportObjective() {
     }, 3000);
   }, []);
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Hacking animation effect
   useEffect(() => {
     if (phase === 'hacking') {

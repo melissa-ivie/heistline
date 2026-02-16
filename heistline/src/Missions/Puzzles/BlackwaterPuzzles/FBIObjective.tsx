@@ -1,7 +1,7 @@
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../../../App.css';
 import styles from './styleFBIO.module.css';
-import { useState, useEffect } from 'react';
 
 interface EvidenceStatus {
   airport: boolean;
@@ -65,6 +65,15 @@ export default function FBIObjective() {
     } else {
       setError('Cannot submit: Not all evidence has been collected. Complete all objectives first.');
     }
+}
+  const [showImage, setShowImage] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const handleShowImage = () => {
+    setShowImage((prev) => !prev); // toggles true ↔ false
   };
 
   return (

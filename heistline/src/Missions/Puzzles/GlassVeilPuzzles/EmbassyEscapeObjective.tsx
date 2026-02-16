@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../../../App.css';
 
 export default function EmbassyEscape() {
@@ -7,6 +7,10 @@ export default function EmbassyEscape() {
   const [complete, setComplete] = useState(
     localStorage.getItem(`${heistName}-objective-embassy-escape`) === 'complete'
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = () => {
     const updated = !complete;
