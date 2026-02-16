@@ -5,17 +5,24 @@ import styles from './styleAirport.module.css';
 
 import planeImg from "./resources/plane-seats.png";
 
-function Slider({ value, onChange, color, orientation = 'horizontal' }) {
+interface SliderProps {
+  value: number;
+  onChange: (value: number) => void;
+  color: 'red' | 'blue';
+  orientation?: 'horizontal' | 'vertical';
+}
+
+function Slider({ value, onChange, color, orientation = 'horizontal' }: SliderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [isGrabbing, setIsGrabbing] = useState(false);
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
     updateValue(e);
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (isDragging) {
       updateValue(e);
     }
@@ -26,7 +33,7 @@ function Slider({ value, onChange, color, orientation = 'horizontal' }) {
     setIsGrabbing(false);
   };
 
-  const updateValue = (e) => {
+  const updateValue = (e: React.MouseEvent | MouseEvent) => {
     e.preventDefault(); // Prevent text selection
     if (sliderRef.current) {
       const rect = sliderRef.current.getBoundingClientRect();
@@ -190,7 +197,7 @@ export default function AirportObjective() {
     { baseX: 80, baseY: 10, multiplier: 1.6 }
   ];
 
-  const calculatePosition = (horizontal: number, vertical: number, dot: any) => {
+  const calculatePosition = (horizontal: number, vertical: number, dot: { baseX: number; baseY: number; multiplier: number }) => {
     const maxOffset = 195;
 
     const xOffset = ((horizontal - 50) * dot.multiplier * maxOffset) / 50;
@@ -231,7 +238,7 @@ export default function AirportObjective() {
   };
 
   // Only reveal seat labels when ALL seats are aligned
-  const isTargetRevealed = (targetIndex: number) => {
+  const isTargetRevealed = () => {
     return areAllSeatsAligned();
   };
 
@@ -355,7 +362,7 @@ export default function AirportObjective() {
                   style={{
                     left: `${seat.x}px`,
                     top: `${seat.y}px`,
-                    opacity: isTargetRevealed(i) ? 1 : 0
+                    opacity: isTargetRevealed() ? 1 : 0
                   }}
                 >
                   {seat.label}
