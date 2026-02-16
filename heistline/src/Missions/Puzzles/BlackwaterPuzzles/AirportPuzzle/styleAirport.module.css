@@ -408,7 +408,7 @@ img {
   left: 0;
   right: 0;
   height: 8px;
-  background: linear-gradient(90deg, #5bc0de 0%, #4a9fb8 100%);
+  background: linear-gradient(90deg, #c25bde 0%, #b14ab8 100%);
 }
 
 .ticketHeader {
@@ -421,7 +421,7 @@ img {
 }
 
 .ticketTitle {
-  color: #5bc0de;
+  color: #a15bde;
   font-size: 1.4rem;
   font-weight: bold;
   margin: 0;
@@ -496,7 +496,7 @@ img {
 }
 
 .searchButton {
-  background: linear-gradient(to bottom, #5bc0de 0%, #4a9fb8 100%);
+  background: linear-gradient(to bottom, #b75bde 0%, #974ab8 100%);
   color: white;
   border: 1px solid #46b8da;
   padding: 0.9rem 2rem;

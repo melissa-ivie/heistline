@@ -287,11 +287,11 @@ export default function AirportObjective() {
           </p>
           <p className={styles.briefText}>
             <strong>THREAT:</strong> Intelligence suggests Nexacore has planted an explosive device in luggage
-            stored beneath specific seats. The plane will be destroyed mid-flight, eliminating all witnesses.
+            stored beneath 4 specific seats. The plane will be destroyed mid-flight, eliminating all witnesses.
           </p>
           <p className={styles.briefText}>
             <strong>YOUR MISSION:</strong> Our agent is already on board, but we need the exact seat numbers
-            NexaCore purchased. Decrypt their booking system to identify the target seats. Time is running out.
+            Nexacore purchased. Decrypt their booking system to identify the target seats. Time is running out.
           </p>
         </div>
       </div>
@@ -405,7 +405,7 @@ export default function AirportObjective() {
         <div className={styles.ticket}>
           <div className={styles.ticketHeader}>
             <div>
-              <h2 className={styles.ticketTitle}>Global Airlines</h2>
+              <h2 className={styles.ticketTitle}>Purple Airlines</h2>
             </div>
             <div className={styles.ticketBarcode}>||||||||||||||||||||||||</div>
           </div>
