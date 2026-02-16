@@ -2,27 +2,27 @@ import { useState } from 'react';
 import styles from './ContaminationReportStyles.module.css';
 
 // Import profile images from snipped fb pics folder
-import davidJonesProfile from '../../../assets/snipped fb pics/david pic.png';
-import davidJonesCover from '../../../assets/snipped fb pics/david backround pic.png';
-import mittensPost from '../../../assets/snipped fb pics/mittens pic .png';
-import karenJonesProfile from '../../../assets/snipped fb pics/karen jones.png';
-import karenJonesCover from '../../../assets/snipped fb pics/flowers pic .png';
-import karenWeddingPost from '../../../assets/snipped fb pics/karen wedding pic .png';
-import susanJonesProfile from '../../../assets/snipped fb pics/susan.png';
-import michaelWhiteProfile from '../../../assets/snipped fb pics/micheal white.png';
-import judyJohnsonProfile from '../../../assets/snipped fb pics/judy johnson.png';
-import carolProfile from '../../../assets/snipped fb pics/carol.png';
-import brianWalkerProfile from '../../../assets/snipped fb pics/brian.png';
 import bettyCaterProfile from '../../../assets/snipped fb pics/betty.png';
-import williamBrownProfile from '../../../assets/snipped fb pics/willam.png';
-import richardProfile from '../../../assets/snipped fb pics/richard .png';
+import brianWalkerProfile from '../../../assets/snipped fb pics/brian.png';
+import carolProfile from '../../../assets/snipped fb pics/carol.png';
+import davidJonesCover from '../../../assets/snipped fb pics/david backround pic.png';
+import davidJonesProfile from '../../../assets/snipped fb pics/david pic.png';
 import emmaProfile from '../../../assets/snipped fb pics/emma.png';
-import nickProfile from '../../../assets/snipped fb pics/nick jones.png';
-import timProfile from '../../../assets/snipped fb pics/tim jones .png';
 import flowerPost from '../../../assets/snipped fb pics/flower post .png';
-import lilacPost from '../../../assets/snipped fb pics/lilac post.png';
+import karenJonesCover from '../../../assets/snipped fb pics/flowers pic .png';
 import forestPost from '../../../assets/snipped fb pics/forest pic.jpg';
+import judyJohnsonProfile from '../../../assets/snipped fb pics/judy johnson.png';
+import karenJonesProfile from '../../../assets/snipped fb pics/karen jones.png';
+import karenWeddingPost from '../../../assets/snipped fb pics/karen wedding pic .png';
+import lilacPost from '../../../assets/snipped fb pics/lilac post.png';
+import michaelWhiteProfile from '../../../assets/snipped fb pics/micheal white.png';
+import mittensPost from '../../../assets/snipped fb pics/mittens pic .png';
+import nickProfile from '../../../assets/snipped fb pics/nick jones.png';
+import richardProfile from '../../../assets/snipped fb pics/richard .png';
+import susanJonesProfile from '../../../assets/snipped fb pics/susan.png';
+import timProfile from '../../../assets/snipped fb pics/tim jones .png';
 import walkPost from '../../../assets/snipped fb pics/walk post.jpg';
+import williamBrownProfile from '../../../assets/snipped fb pics/willam.png';
 
 // Map profile IDs to their images
 const profileImages: Record<string, string> = {
@@ -301,7 +301,7 @@ const profiles: Record<string, FacebookProfile> = {
       lifeEvents: [
         { year: '2010', event: 'Joined Facebook' },
         { year: '2005', event: 'Married David Jones' },
-        { year: '1982', event: 'Graduated from Springfield Community College' }
+        { year: '2002', event: 'Graduated from Springfield Community College' }
       ]
     }
   },
