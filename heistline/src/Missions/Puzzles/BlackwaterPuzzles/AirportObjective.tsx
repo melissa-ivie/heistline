@@ -1,12 +1,16 @@
 import { useParams, Link } from 'react-router-dom';
 import '../../../App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function AirportObjective() {
   const { heistName } = useParams();
   const [complete, setComplete] = useState(
   localStorage.getItem(`${heistName}-objective-airport`) === 'complete'
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = () => {
     const updated = !complete;

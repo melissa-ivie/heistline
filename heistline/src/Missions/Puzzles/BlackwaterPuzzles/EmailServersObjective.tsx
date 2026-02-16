@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import '../../../App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 export default function EmailServersObjective() {
@@ -8,6 +8,10 @@ export default function EmailServersObjective() {
   const [complete, setComplete] = useState(
   localStorage.getItem(`${heistName}-email-servers`) === 'complete'
   );
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = () => {
     const updated = !complete;

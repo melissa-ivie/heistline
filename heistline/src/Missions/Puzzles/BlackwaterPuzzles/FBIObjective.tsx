@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import '../../../App.css';
 import styles from './styleFBIO.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function FBIObjective() {
   const { heistName } = useParams();
@@ -13,6 +13,11 @@ export default function FBIObjective() {
   const [error, setError] = useState('');
 
   const [showImage, setShowImage] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleShowImage = () => {
     setShowImage((prev) => !prev); // toggles true ↔ false
   };
