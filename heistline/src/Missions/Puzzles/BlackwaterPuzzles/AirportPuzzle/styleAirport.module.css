@@ -10,6 +10,12 @@
 .seatingPlan {
   width: 500px;
   height: 500px;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
   /*filter:blur(1.5rem);*/
 }
 
@@ -91,6 +97,10 @@ img {
   align-items: stretch;
   justify-content: center;
   margin: 2rem 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Vertical slider container */
@@ -247,6 +257,10 @@ img {
   background-color: #e2e8f0;
   border-radius: 9999px;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Slider track - vertical */
@@ -257,6 +271,10 @@ img {
   background-color: #e2e8f0;
   border-radius: 9999px;
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Slider fill - horizontal */
@@ -305,6 +323,10 @@ img {
   border-radius: 9999px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Slider handle - vertical */
@@ -318,11 +340,19 @@ img {
   border-radius: 9999px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Handle grabbing state */
 .sliderHandleGrabbing {
   cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Red border for handle */

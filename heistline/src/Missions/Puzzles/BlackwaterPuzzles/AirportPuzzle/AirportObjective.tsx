@@ -27,6 +27,7 @@ function Slider({ value, onChange, color, orientation = 'horizontal' }) {
   };
 
   const updateValue = (e) => {
+    e.preventDefault(); // Prevent text selection
     if (sliderRef.current) {
       const rect = sliderRef.current.getBoundingClientRect();
 
