@@ -434,7 +434,7 @@ export default function AirportObjective() {
             </div>
 
             <div className={styles.ticketRow} style={{ marginTop: '0.5rem' }}>
-              <span className={styles.ticketLabel}>SEAT</span>
+              <span className={styles.ticketLabel}>SEAT (enter all 4 seats seperated by spaces)</span>
               <textarea
                 className={styles.seatInput}
                 value={seatInput}
