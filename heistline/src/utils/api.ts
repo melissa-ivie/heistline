@@ -3,8 +3,7 @@
  * Handles all backend API calls with fallback support
  */
 
-// Use environment variable for API URL, fallback to Render.com for now
-const API_URL = import.meta.env.VITE_API_URL || 'https://heistline-access-api.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.heistline.org';
 
 export interface VerifyAccessResponse {
   valid: boolean;

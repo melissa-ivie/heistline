@@ -1,19 +1,18 @@
 name = "heistline-api"
 main = "src/index.ts"
 compatibility_date = "2026-01-08"
+account_id = "8093b7c1c16a0842e3397a717a55f96d"
+
+# Custom domain — serves the API at https://api.heistline.org
+routes = [
+  { pattern = "api.heistline.org", custom_domain = true }
+]
 
 # D1 Database binding
 [[d1_databases]]
 binding = "DB"
 database_name = "heistline-db"
-database_id = "370f555c-603f-46db-9442-d15c75d0e779"
+database_id = "b20c2562-1bd3-42d1-8a5d-12097537299d"
 
-# Environment variables (set these in Cloudflare Dashboard for security)
-# STRIPE_SECRET_KEY - Your Stripe secret key
-# STRIPE_WEBHOOK_SECRET - Your Stripe webhook signing secret
-# HEISTLINE_ACCESS_TOKEN - Your access token
-
-# Routes - this will make your API available at your custom domain
-# routes = [
-#   { pattern = "heistline.com/api/*", zone_name = "heistline.com" }
-# ]
+# Secrets (set via `wrangler secret put <NAME>`, not committed):
+# STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, HEISTLINE_ACCESS_TOKEN
